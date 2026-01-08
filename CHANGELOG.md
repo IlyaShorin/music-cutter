@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/IlyaShorin/music-cutter/compare/v1.4.12...v1.5.0) (2026-01-08)
+
+
+### Features
+
+* **i18n:** complete i18n implementation ([9a0df37](https://github.com/IlyaShorin/music-cutter/commit/9a0df3737410da7b97bed960d01eb8d6150df157))
+
 ## [1.4.12](https://github.com/IlyaShorin/music-cutter/compare/v1.4.11...v1.4.12) (2026-01-08)
 
 
