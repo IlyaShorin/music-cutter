@@ -1,3 +1,10 @@
+## [1.4.9](https://github.com/IlyaShorin/music-cutter/compare/v1.4.8...v1.4.9) (2026-01-08)
+
+
+### Bug Fixes
+
+* hide console window on Windows when running FFmpeg processes ([aadd123](https://github.com/IlyaShorin/music-cutter/commit/aadd123))
+
 ## [1.4.8](https://github.com/IlyaShorin/music-cutter/compare/v1.4.7...v1.4.8) (2026-01-08)
 
 

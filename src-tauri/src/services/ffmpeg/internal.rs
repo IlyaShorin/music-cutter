@@ -1,7 +1,7 @@
 use crate::services::time::Timecode;
 use crate::services::ffmpeg::ffmpeg_path;
+use crate::services::ffmpeg::command::hidden_command;
 use crate::services::ffmpeg::filter::build_afilter;
-use std::process::Command;
 
 pub fn cut_audio_internal(
     input_path: &str,
@@ -15,7 +15,7 @@ pub fn cut_audio_internal(
     let has_filters = fade_in || fade_out;
 
     let ffmpeg = ffmpeg_path()?;
-    let mut cmd = Command::new(ffmpeg);
+    let mut cmd = hidden_command(ffmpeg);
     cmd.arg("-v").arg("error");
 
     if !has_filters {

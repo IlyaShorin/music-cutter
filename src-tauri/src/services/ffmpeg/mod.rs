@@ -1,3 +1,4 @@
+pub mod command;
 pub mod cut;
 pub mod duration;
 pub mod filter;

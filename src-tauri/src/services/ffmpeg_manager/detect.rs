@@ -1,5 +1,5 @@
 use std::path::PathBuf;
-use std::process::Command;
+use crate::services::ffmpeg::command::hidden_command;
 
 const FFMPEG_BIN: &str = "ffmpeg";
 const FFPROBE_BIN: &str = "ffprobe";
@@ -21,9 +21,9 @@ pub fn find_system_ffmpeg() -> Option<(PathBuf, Option<PathBuf>)> {
 
 fn find_command(cmd: &str) -> Option<PathBuf> {
     let result = if cfg!(target_os = "windows") {
-        Command::new("where").arg(cmd).output()
+        hidden_command("where").arg(cmd).output()
     } else {
-        Command::new("which").arg(cmd).output()
+        hidden_command("which").arg(cmd).output()
     }.ok()?;
 
     if result.status.success() {
@@ -39,7 +39,7 @@ pub fn validate_executable(path: PathBuf) -> bool {
         return false;
     }
 
-    let result = Command::new(&path)
+    let result = hidden_command(&path)
         .arg("-version")
         .output();
 

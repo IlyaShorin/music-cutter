@@ -1,6 +1,6 @@
 use crate::services::ffmpeg::ffprobe_path;
+use crate::services::ffmpeg::command::hidden_command;
 use std::path::Path;
-use std::process::Command;
 
 pub fn get_audio_duration(file_path: &str) -> Result<u64, String> {
     let path = Path::new(file_path);
@@ -9,7 +9,7 @@ pub fn get_audio_duration(file_path: &str) -> Result<u64, String> {
     }
 
     let ffprobe = ffprobe_path()?;
-    let output = Command::new(ffprobe)
+    let output = hidden_command(ffprobe)
         .arg("-v")
         .arg("error")
         .arg("-show_entries")
