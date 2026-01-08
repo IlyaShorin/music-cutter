@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/IlyaShorin/music-cutter/compare/v1.1.0...v1.2.0) (2026-01-08)
+
+
+### Features
+
+* add automated release workflow with semantic-release ([c2a3377](https://github.com/IlyaShorin/music-cutter/commit/c2a3377882d88514c151b7c5638ca885e6cf7b35))
+
 # Changelog
 
 ## [1.1.0] - 2025-01-08
