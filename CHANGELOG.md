@@ -1,3 +1,10 @@
+## [1.4.7](https://github.com/IlyaShorin/music-cutter/compare/v1.4.6...v1.4.7) (2026-01-08)
+
+
+### Bug Fixes
+
+* use sonnet model and remove settings from claude workflow ([be50b42](https://github.com/IlyaShorin/music-cutter/commit/be50b425aef245d43eb703c3b5944505e8d1df29))
+
 ## [1.4.6](https://github.com/IlyaShorin/music-cutter/compare/v1.4.5...v1.4.6) (2026-01-08)
 
 
