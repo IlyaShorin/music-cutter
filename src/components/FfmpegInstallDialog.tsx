@@ -13,7 +13,9 @@ export function FfmpegInstallDialog({ open, onClose, onInstall, isDownloading, d
     return (
         <Dialog.Root open={open} onOpenChange={({ open }) => !open && onClose()}>
             <Dialog.Content>
-                <Dialog.Title>FFmpeg Required</Dialog.Title>
+                <Dialog.Header p={4}>
+                    <Dialog.Title>FFmpeg Required</Dialog.Title>
+                </Dialog.Header>
                 <Dialog.Body>
                     <VStack gap={4} align="stretch">
                         <Text>
