@@ -3,8 +3,8 @@ mod services;
 mod types;
 
 use commands::{
-    clear_output_folder, cut_audio_fragment, cut_audio_batch, cut_single_track,
-    get_audio_duration_command, get_audio_metadata, select_audio_file, select_output_file,
+    check_ffmpeg_status, clear_output_folder, cut_audio_fragment, cut_audio_batch, cut_single_track,
+    download_and_install_ffmpeg_command, get_audio_duration_command, get_audio_metadata, select_audio_file, select_output_file,
     select_output_folder, select_output_folder_as, set_audio_metadata,
 };
 
@@ -25,7 +25,9 @@ pub fn run() {
             cut_audio_batch,
             cut_single_track,
             get_audio_duration_command,
-            clear_output_folder
+            clear_output_folder,
+            check_ffmpeg_status,
+            download_and_install_ffmpeg_command,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
