@@ -1,3 +1,10 @@
+## [1.4.10](https://github.com/IlyaShorin/music-cutter/compare/v1.4.9...v1.4.10) (2026-01-08)
+
+
+### Bug Fixes
+
+* detect system FFmpeg in Homebrew paths on macOS ([81d83c6](https://github.com/IlyaShorin/music-cutter/commit/81d83c6a06f6cfb3f26b11f937f5aeccbec541fd))
+
 ## [1.4.9](https://github.com/IlyaShorin/music-cutter/compare/v1.4.8...v1.4.9) (2026-01-08)
 
 
