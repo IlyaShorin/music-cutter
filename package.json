@@ -1,5 +1,5 @@
 {
-  "name": "music-cutter-temp",
+  "name": "music-cutter",
   "private": true,
   "version": "0.1.0",
   "type": "module",
@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "release": "semantic-release",
+    "release:dry": "semantic-release --dry-run"
   },
   "dependencies": {
     "@chakra-ui/react": "^3.30.0",
@@ -22,10 +24,13 @@
     "react-icons": "^5.5.0"
   },
   "devDependencies": {
+    "@semantic-release/changelog": "^12.0.0",
+    "@semantic-release/git": "^12.0.0",
     "@tauri-apps/cli": "^2",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react": "^4.6.0",
+    "semantic-release": "^24.0.0",
     "typescript": "~5.8.3",
     "vite": "^7.0.4"
   }
