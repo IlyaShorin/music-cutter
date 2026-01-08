@@ -37,7 +37,7 @@ jobs:
 
           if echo "$output" | grep -q "Published release"; then
             echo "release_created=true" >> $GITHUB_OUTPUT
-            tag_name=$(echo "$output" | grep -oP '(?<=Published release )[^ ]+' || echo "")
+            tag_name=$(echo "$output" | grep -oE 'Published release [0-9]+\.[0-9]+\.[0-9]+' | sed 's/Published release /v/')
             echo "tag_name=$tag_name" >> $GITHUB_OUTPUT
           fi
 
@@ -62,5 +62,7 @@ jobs:
 
       - name: Build Tauri app
         uses: tauri-apps/tauri-action@v0
+        with:
+          tagName: ${{ needs.release.outputs.tag_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
