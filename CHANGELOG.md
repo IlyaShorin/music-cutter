@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/IlyaShorin/music-cutter/compare/v1.4.0...v1.4.1) (2026-01-08)
+
+
+### Bug Fixes
+
+* add proper padding to FFmpeg dialog title ([ad17c71](https://github.com/IlyaShorin/music-cutter/commit/ad17c713cc54caf81aeb884911eb5ed156f3728b))
+
 # [1.4.0](https://github.com/IlyaShorin/music-cutter/compare/v1.3.0...v1.4.0) (2026-01-08)
 
 
