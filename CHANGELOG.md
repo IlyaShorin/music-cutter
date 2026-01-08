@@ -1,3 +1,10 @@
+## [1.4.4](https://github.com/IlyaShorin/music-cutter/compare/v1.4.3...v1.4.4) (2026-01-08)
+
+
+### Bug Fixes
+
+* add settings and debug mode to claude code review workflow ([0cf4b64](https://github.com/IlyaShorin/music-cutter/commit/0cf4b643787b82d9f1cd86a10336eb38610b3ab4))
+
 ## [1.4.3](https://github.com/IlyaShorin/music-cutter/compare/v1.4.2...v1.4.3) (2026-01-08)
 
 
