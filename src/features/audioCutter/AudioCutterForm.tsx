@@ -3,6 +3,7 @@ import type { UseAudioCutterResult } from './useAudioCutter';
 import { TimecodeInput } from '../../components/TimecodeInput';
 import { Button } from '../../components/ui/Button';
 import { TextInput } from '../../components/ui/TextInput';
+import { Checkbox } from '../../components/ui/Checkbox';
 import { CutButton } from '../../components/CutButton';
 import { StatusAlert } from '../../components/StatusAlert';
 import { AudioCutterMetadata } from './AudioCutterMetadata';
@@ -15,6 +16,7 @@ interface AudioCutterFormProps {
     onSelectFile: () => void;
     onSelectOutput: () => void;
     onInputChange: (value: string) => void;
+    onMetadataValuesChange: UseAudioCutterResult['handleMetadataValuesChange'];
     onSubmit: () => void;
 }
 
@@ -26,6 +28,7 @@ export function AudioCutterForm({
     onSelectFile,
     onSelectOutput,
     onInputChange,
+    onMetadataValuesChange,
     onSubmit,
 }: AudioCutterFormProps) {
     const filePath = form.watch('filePath');
@@ -51,13 +54,7 @@ export function AudioCutterForm({
     }
 
     function handleClick() {
-        if (status === 'error') {
-            form.reset(form.getValues());
-            form.setValue('filePath', form.watch('filePath'));
-            form.setValue('outputFileName', form.watch('outputFileName'));
-        } else {
-            onSubmit();
-        }
+        onSubmit();
     }
 
     return (
@@ -108,7 +105,7 @@ export function AudioCutterForm({
                 error={endTimeError}
             />
 
-            {filePath && <AudioCutterMetadata filePath={filePath} onMetadataLoaded={handleMetadataLoaded} />}
+            {filePath && <AudioCutterMetadata filePath={filePath} onMetadataLoaded={handleMetadataLoaded} onValuesChange={onMetadataValuesChange} />}
 
             <Box width="100%">
                 <Text fontSize="sm" fontWeight="medium" color="fg.muted" mb={2}>
@@ -135,6 +132,34 @@ export function AudioCutterForm({
                         {outputPathError}
                     </Text>
                 )}
+            </Box>
+
+            <Box width="100%">
+                <Text fontSize="sm" fontWeight="medium" color="fg.muted" mb={2}>
+                    Audio Effects
+                </Text>
+                <HStack gap={4}>
+                    <HStack gap={2}>
+                        <Checkbox
+                            checked={form.watch('fadeIn')}
+                            onChange={(v) => form.setValue('fadeIn', v)}
+                            disabled={status === 'cutting'}
+                        />
+                        <Text fontSize="sm" color="fg.muted">
+                            Fade In (3s)
+                        </Text>
+                    </HStack>
+                    <HStack gap={2}>
+                        <Checkbox
+                            checked={form.watch('fadeOut')}
+                            onChange={(v) => form.setValue('fadeOut', v)}
+                            disabled={status === 'cutting'}
+                        />
+                        <Text fontSize="sm" color="fg.muted">
+                            Fade Out (3s)
+                        </Text>
+                    </HStack>
+                </HStack>
             </Box>
 
             <CutButton status={status} onClick={handleClick} />

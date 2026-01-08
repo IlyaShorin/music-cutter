@@ -5,31 +5,27 @@ interface TimeFieldProps {
     onChange: (value: string) => void;
     disabled: boolean;
     placeholder: string;
-    label: string;
 }
 
-export function TimeField({ value, onChange, disabled, placeholder, label }: TimeFieldProps) {
+export function TimeField({ value, onChange, disabled, placeholder }: TimeFieldProps) {
     return (
-        <Box position="relative" flex={1}>
+        <Box flex={1}>
+            <Text
+                fontSize="xs"
+                color="fg.muted"
+                mb={0.5}
+                textAlign="left"
+            >
+                {placeholder}
+            </Text>
             <Input
                 value={value}
                 onChange={(e) => onChange(e.target.value.slice(0, 2))}
                 disabled={disabled}
-                placeholder={placeholder}
+                placeholder="00"
                 textAlign="center"
                 maxLength={2}
             />
-            <Text
-                position="absolute"
-                right={2}
-                top="50%"
-                transform="translateY(-50%)"
-                fontSize="xs"
-                color="fg.muted"
-                pointerEvents="none"
-            >
-                {label}
-            </Text>
         </Box>
     );
 }

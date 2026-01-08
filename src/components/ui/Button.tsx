@@ -9,6 +9,8 @@ interface ButtonProps {
     colorPalette?: 'blue' | 'green' | 'red' | 'gray';
     size?: 'sm' | 'md' | 'lg';
     width?: string | number;
+    height?: string | number;
+    padding?: string | number;
     isLoading?: boolean;
 }
 
@@ -21,6 +23,8 @@ export function Button({
     colorPalette = 'blue',
     size = 'md',
     width,
+    height,
+    padding,
     isLoading = false,
 }: ButtonProps) {
     return (
@@ -32,6 +36,8 @@ export function Button({
             colorPalette={colorPalette}
             size={size}
             width={width}
+            height={height}
+            padding={padding}
             loading={isLoading}
         >
             {children}

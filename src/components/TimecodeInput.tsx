@@ -25,19 +25,18 @@ export function TimecodeInput({
     error,
 }: TimecodeInputProps) {
     return (
-        <Box>
-            <Text fontSize="sm" fontWeight="medium" color="fg.muted" mb={2}>
+        <Box width="100%">
+            <Text fontSize="sm" fontWeight="medium" color="fg.muted" mb={0.5}>
                 {label}
             </Text>
-            <HStack gap={2}>
+            <HStack gap={2} width="100%">
                 <TimeField
                     value={hours}
                     onChange={onHoursChange}
                     disabled={disabled}
                     placeholder="HH"
-                    label="HH"
                 />
-                <Text color="fg.muted" fontWeight="bold">
+                <Text color="fg.muted" fontWeight="bold" paddingTop={4}>
                     :
                 </Text>
                 <TimeField
@@ -45,9 +44,8 @@ export function TimecodeInput({
                     onChange={onMinutesChange}
                     disabled={disabled}
                     placeholder="MM"
-                    label="MM"
                 />
-                <Text color="fg.muted" fontWeight="bold">
+                <Text color="fg.muted" fontWeight="bold" paddingTop={4}>
                     :
                 </Text>
                 <TimeField
@@ -55,7 +53,6 @@ export function TimecodeInput({
                     onChange={onSecondsChange}
                     disabled={disabled}
                     placeholder="SS"
-                    label="SS"
                 />
             </HStack>
             {error && (

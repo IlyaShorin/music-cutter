@@ -3,6 +3,22 @@ export interface AudioInput {
     start_time: string;
     end_time: string;
     output_path: string;
+    title?: string;
+    artist?: string;
+    album?: string;
+    album_artist?: string;
+    composer?: string;
+    genre?: string;
+    year?: number;
+    track_number?: number;
+    total_tracks?: number;
+    disc_number?: number;
+    total_discs?: number;
+    is_compilation?: boolean;
+    comment?: string;
+    cover_image_data?: string;
+    fade_in?: boolean;
+    fade_out?: boolean;
 }
 
 export interface AudioOutput {

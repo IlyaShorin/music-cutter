@@ -1,8 +1,9 @@
 import { useForm } from 'react-hook-form';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { selectAudioFile, selectOutputFile, cutAudioFragment } from '../../api/commands';
 import type { CutStatus } from '../../types/audio';
 import { formatTimecode } from '../../utils/time';
+import type { MetadataValues } from '../metadataEditor/MetadataEditor';
 
 export interface AudioCutterForm {
     filePath: string;
@@ -14,6 +15,8 @@ export interface AudioCutterForm {
     endTimeSeconds: string;
     outputPath: string;
     outputFileName: string;
+    fadeIn: boolean;
+    fadeOut: boolean;
 }
 
 export interface UseAudioCutterResult {
@@ -21,9 +24,12 @@ export interface UseAudioCutterResult {
     status: CutStatus;
     error: string | null;
     inputValue: string;
+    metadataValues: MetadataValues | null;
+    coverData: string | null;
     handleSelectFile: () => void;
     handleSelectOutput: () => void;
     handleInputChange: (value: string) => void;
+    handleMetadataValuesChange: (values: MetadataValues, coverData: string | null) => void;
     handleSubmit: () => void;
 }
 
@@ -47,6 +53,8 @@ export function useAudioCutter(): UseAudioCutterResult {
     const [status, setStatus] = useState<CutStatus>('idle');
     const [error, setError] = useState<string | null>(null);
     const [inputValue, setInputValue] = useState('');
+    const [metadataValues, setMetadataValues] = useState<MetadataValues | null>(null);
+    const [coverData, setCoverData] = useState<string | null>(null);
 
     const form = useForm<AudioCutterForm>({
         defaultValues: {
@@ -59,6 +67,8 @@ export function useAudioCutter(): UseAudioCutterResult {
             endTimeSeconds: '',
             outputPath: '',
             outputFileName: '',
+            fadeIn: false,
+            fadeOut: false,
         },
         mode: 'onTouched',
     });
@@ -73,6 +83,16 @@ export function useAudioCutter(): UseAudioCutterResult {
     register('endTimeHours', { validate: validateHours });
     register('endTimeMinutes', { validate: validateMinutesOrSeconds });
     register('endTimeSeconds', { validate: validateMinutesOrSeconds });
+
+    const handleMetadataValuesChange = useCallback((values: MetadataValues, cover: string | null) => {
+        setMetadataValues(values);
+        setCoverData(cover);
+
+        const suggestedName = `${values.artist} - ${values.title}`.trim();
+        if (suggestedName && suggestedName !== ' - ') {
+            setValue('outputFileName', suggestedName);
+        }
+    }, [setValue]);
 
     async function handleSelectFile() {
         try {
@@ -159,12 +179,29 @@ export function useAudioCutter(): UseAudioCutterResult {
                 start_time: startFormatted,
                 end_time: endFormatted,
                 output_path: values.outputPath,
+                title: metadataValues?.title || undefined,
+                artist: metadataValues?.artist || undefined,
+                album: metadataValues?.album || undefined,
+                album_artist: metadataValues?.album_artist || undefined,
+                composer: metadataValues?.composer || undefined,
+                genre: metadataValues?.genre || undefined,
+                year: metadataValues?.year ? parseInt(metadataValues.year, 10) : undefined,
+                track_number: metadataValues?.track_number ? parseInt(metadataValues.track_number, 10) : undefined,
+                total_tracks: undefined,
+                disc_number: metadataValues?.disc_number ? parseInt(metadataValues.disc_number, 10) : undefined,
+                total_discs: undefined,
+                is_compilation: metadataValues?.is_compilation,
+                comment: metadataValues?.comment || undefined,
+                cover_image_data: coverData || undefined,
+                fade_in: values.fadeIn,
+                fade_out: values.fadeOut,
             });
 
             setStatus('success');
         } catch (err) {
             setStatus('error');
-            setError(err instanceof Error ? err.message : 'Failed to cut audio');
+            const errorMessage = err instanceof Error ? err.message : String(err);
+            setError(errorMessage);
         }
     }
 
@@ -173,9 +210,12 @@ export function useAudioCutter(): UseAudioCutterResult {
         status,
         error,
         inputValue,
+        metadataValues,
+        coverData,
         handleSelectFile,
         handleSelectOutput,
         handleInputChange,
+        handleMetadataValuesChange,
         handleSubmit,
     };
 }

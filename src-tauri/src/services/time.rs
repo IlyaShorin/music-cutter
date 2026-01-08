@@ -12,6 +12,27 @@ impl Timecode {
         let parts: Vec<&str> = input.split(':').collect();
 
         match parts.len() {
+            2 => {
+                let minutes = parts[0]
+                    .parse::<u64>()
+                    .map_err(|_| format!("Invalid minutes: {}", parts[0]))?;
+                let seconds = parts[1]
+                    .parse::<u64>()
+                    .map_err(|_| format!("Invalid seconds: {}", parts[1]))?;
+
+                if minutes >= 60 {
+                    return Err("Minutes must be less than 60".to_string());
+                }
+                if seconds >= 60 {
+                    return Err("Seconds must be less than 60".to_string());
+                }
+
+                Ok(Self {
+                    hours: 0,
+                    minutes,
+                    seconds,
+                })
+            }
             3 => {
                 let hours = parts[0]
                     .parse::<u64>()
@@ -36,7 +57,7 @@ impl Timecode {
                     seconds,
                 })
             }
-            _ => Err("Timecode must be in HH:MM:SS format".to_string()),
+            _ => Err("Timecode must be in MM:SS or HH:MM:SS format".to_string()),
         }
     }
 
@@ -50,6 +71,14 @@ impl Timecode {
             hours: total / 3600,
             minutes: (total % 3600) / 60,
             seconds: total % 60,
+        }
+    }
+
+    pub const fn zero() -> Self {
+        Self {
+            hours: 0,
+            minutes: 0,
+            seconds: 0,
         }
     }
 
@@ -69,11 +98,27 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_parse_valid() {
+    fn test_parse_valid_hms() {
         let tc = Timecode::parse("01:23:45").unwrap();
         assert_eq!(tc.hours, 1);
         assert_eq!(tc.minutes, 23);
         assert_eq!(tc.seconds, 45);
+    }
+
+    #[test]
+    fn test_parse_valid_ms() {
+        let tc = Timecode::parse("1:46").unwrap();
+        assert_eq!(tc.hours, 0);
+        assert_eq!(tc.minutes, 1);
+        assert_eq!(tc.seconds, 46);
+    }
+
+    #[test]
+    fn test_parse_ms_with_padding() {
+        let tc = Timecode::parse("01:02").unwrap();
+        assert_eq!(tc.hours, 0);
+        assert_eq!(tc.minutes, 1);
+        assert_eq!(tc.seconds, 2);
     }
 
     #[test]
@@ -83,9 +128,22 @@ mod tests {
     }
 
     #[test]
+    fn test_to_seconds_ms() {
+        let tc = Timecode::parse("1:46").unwrap();
+        assert_eq!(tc.to_seconds(), 106);
+    }
+
+    #[test]
     fn test_duration() {
         let start = Timecode::parse("00:01:00").unwrap();
         let end = Timecode::parse("00:02:30").unwrap();
         assert_eq!(start.duration_to(&end), 90);
+    }
+
+    #[test]
+    fn test_duration_ms() {
+        let start = Timecode::parse("1:46").unwrap();
+        let end = Timecode::parse("2:15").unwrap();
+        assert_eq!(start.duration_to(&end), 29);
     }
 }

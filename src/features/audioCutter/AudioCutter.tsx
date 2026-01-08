@@ -1,6 +1,7 @@
-import { Box, Heading, Text, VStack } from '@chakra-ui/react';
+import { Box, VStack } from '@chakra-ui/react';
 import { useAudioCutter } from './useAudioCutter';
 import { AudioCutterForm } from './AudioCutterForm';
+import { AudioCutterHeader } from './AudioCutterHeader';
 
 export function AudioCutter() {
     const {
@@ -11,18 +12,14 @@ export function AudioCutter() {
         handleSelectFile,
         handleSelectOutput,
         handleInputChange,
+        handleMetadataValuesChange,
         handleSubmit,
     } = useAudioCutter();
 
     return (
-        <Box minH="100vh" bg="bg.canvas" py={8} px={6}>
-            <VStack gap={6} maxW="lg" mx="auto">
-                <VStack gap={1} textAlign="center">
-                    <Heading size="lg" color="fg.default">
-                        Music Cutter
-                    </Heading>
-                    <Text color="fg.muted">Cut audio fragments from MP3 files</Text>
-                </VStack>
+        <Box minH="calc(100vh - 80px)" bg="bg.canvas">
+            <VStack gap={5} width="100%">
+                <AudioCutterHeader />
 
                 <AudioCutterForm
                     form={form}
@@ -32,6 +29,7 @@ export function AudioCutter() {
                     onSelectFile={handleSelectFile}
                     onSelectOutput={handleSelectOutput}
                     onInputChange={handleInputChange}
+                    onMetadataValuesChange={handleMetadataValuesChange}
                     onSubmit={handleSubmit}
                 />
             </VStack>

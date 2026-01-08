@@ -1,6 +1,6 @@
 import { Box, Text, HStack, Image, GridProps } from '@chakra-ui/react';
 import { Button } from './ui/Button';
-import { useRef, ChangeEventHandler } from 'react';
+import { useCoverUpload } from '../hooks/useCoverUpload';
 
 interface CoverUploadProps {
     coverData: string | null;
@@ -12,29 +12,7 @@ type GridColProps = {
 };
 
 export function CoverUpload({ coverData, onCoverChange }: CoverUploadProps & GridColProps) {
-    const inputRef = useRef<HTMLInputElement>(null);
-
-    const handleFileChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-        const file = event.target.files?.[0];
-        if (!file) return;
-
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            onCoverChange(e.target?.result as string);
-        };
-        reader.readAsDataURL(file);
-    };
-
-    function handleRemove() {
-        onCoverChange(null);
-        if (inputRef.current) {
-            inputRef.current.value = '';
-        }
-    }
-
-    function handleClick() {
-        inputRef.current?.click();
-    }
+    const { inputRef, handleFileChange, handleRemove, handleClick } = useCoverUpload(onCoverChange);
 
     return (
         <Box>

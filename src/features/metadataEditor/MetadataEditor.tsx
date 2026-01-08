@@ -1,27 +1,38 @@
-import { Box, Text, VStack, HStack, Separator } from '@chakra-ui/react';
+import { Box, Text, VStack } from '@chakra-ui/react';
 import { useMetadata } from './useMetadata';
 import { MetadataForm } from './MetadataForm';
-import { Button } from '../../components/ui/Button';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
+
+export interface MetadataValues {
+    title: string;
+    artist: string;
+    album: string;
+    album_artist: string;
+    composer: string;
+    genre: string;
+    year: string;
+    track_number: string;
+    disc_number: string;
+    is_compilation: boolean;
+    comment: string;
+}
 
 interface MetadataEditorProps {
     filePath: string;
-    onClose?: () => void;
     onMetadataChange?: (artist: string, title: string) => void;
+    onValuesChange?: (values: MetadataValues, coverData: string | null) => void;
 }
 
-export function MetadataEditor({ filePath, onClose, onMetadataChange }: MetadataEditorProps) {
-    const {
-        form,
-        status,
-        error,
-        coverData,
-        loadMetadata,
-        handleSave,
-        setCoverData,
-    } = useMetadata({ onMetadataChange });
+export function MetadataEditor({ filePath, onMetadataChange, onValuesChange }: MetadataEditorProps) {
+    const { form, status, coverData, loadMetadata, setCoverData } = useMetadata({ onMetadataChange });
 
     const lastLoadedPath = useRef<string | null>(null);
+    const latestCoverData = useRef<string | null>(null);
+    latestCoverData.current = coverData;
+
+    const notifyValuesChange = useCallback((values: MetadataValues) => {
+        onValuesChange?.(values, latestCoverData.current);
+    }, [onValuesChange]);
 
     useEffect(() => {
         if (filePath && filePath !== lastLoadedPath.current) {
@@ -31,17 +42,17 @@ export function MetadataEditor({ filePath, onClose, onMetadataChange }: Metadata
     }, [filePath, loadMetadata]);
 
     useEffect(() => {
-        const subscription = form.watch((value, { name }) => {
-            if (name === 'artist' || name === 'title') {
-                const artist = value.artist || '';
-                const title = value.title || '';
-                if (artist || title) {
-                    onMetadataChange?.(artist, title);
-                }
-            }
+        const subscription = form.watch((value) => {
+            notifyValuesChange(value as MetadataValues);
         });
         return () => subscription.unsubscribe();
-    }, [form, onMetadataChange]);
+    }, [form, notifyValuesChange]);
+
+    useEffect(() => {
+        if (status === 'idle') {
+            notifyValuesChange(form.getValues() as MetadataValues);
+        }
+    }, [coverData, status, form, notifyValuesChange]);
 
     if (status === 'reading') {
         return (
@@ -69,30 +80,6 @@ export function MetadataEditor({ filePath, onClose, onMetadataChange }: Metadata
                 onFieldChange={(field, value) => form.setValue(field as never, value as never)}
                 onCoverChange={setCoverData}
             />
-
-            <Separator />
-
-            <HStack gap={2} width="100%">
-                <Button
-                    onClick={() => handleSave(filePath)}
-                    isLoading={status === 'writing'}
-                    colorPalette={status === 'success' ? 'green' : 'blue'}
-                    width="100%"
-                >
-                    {status === 'success' ? 'Saved!' : 'Save Metadata'}
-                </Button>
-                {onClose && (
-                    <Button variant="outline" onClick={onClose}>
-                        Close
-                    </Button>
-                )}
-            </HStack>
-
-            {error && (
-                <Text color="red.500" fontSize="sm">
-                    {error}
-                </Text>
-            )}
         </VStack>
     );
 }
