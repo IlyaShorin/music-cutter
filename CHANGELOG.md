@@ -1,3 +1,10 @@
+## [1.4.12](https://github.com/IlyaShorin/music-cutter/compare/v1.4.11...v1.4.12) (2026-01-08)
+
+
+### Bug Fixes
+
+* support HH:MM:SS timecode format in tracklist parser ([7dab1e7](https://github.com/IlyaShorin/music-cutter/commit/7dab1e7530e9dea8049ddb85e2a194db91ca3a06))
+
 ## [1.4.11](https://github.com/IlyaShorin/music-cutter/compare/v1.4.10...v1.4.11) (2026-01-08)
 
 
