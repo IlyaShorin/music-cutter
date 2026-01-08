@@ -1,3 +1,12 @@
+# Unreleased
+
+## [1.4.4](https://github.com/IlyaShorin/music-cutter/compare/v1.4.3...v1.4.4) (2026-01-08)
+
+
+### Bug Fixes
+
+* set z.ai base url for claude code review workflow ([fb29f22](https://github.com/IlyaShorin/music-cutter/commit/fb29f22d77ee1a8051f997e46a8cc64706565b10))
+
 # [1.4.0](https://github.com/IlyaShorin/music-cutter/compare/v1.3.0...v1.4.0) (2026-01-08)
 
 
