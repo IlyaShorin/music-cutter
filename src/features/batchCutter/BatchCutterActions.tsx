@@ -1,5 +1,6 @@
 import { HStack } from '@chakra-ui/react';
 import { Button } from '../../components/ui/Button';
+import { useTypedTranslation } from '@/i18n';
 
 interface BatchCutterActionsProps {
     isProcessing: boolean;
@@ -18,6 +19,8 @@ export function BatchCutterActions({
     onProcess,
     onReset,
 }: BatchCutterActionsProps) {
+    const { t } = useTypedTranslation();
+
     return (
         <HStack gap={3}>
             <Button
@@ -26,7 +29,7 @@ export function BatchCutterActions({
                 colorPalette="blue"
                 isLoading={isProcessing}
             >
-                Process All Tracks
+                {t('batchCutter.processAllTracks')}
             </Button>
             {hasResult && (
                 <Button
@@ -34,7 +37,7 @@ export function BatchCutterActions({
                     disabled={isProcessing}
                     variant="outline"
                 >
-                    Start New
+                    {t('common.startNew')}
                 </Button>
             )}
         </HStack>

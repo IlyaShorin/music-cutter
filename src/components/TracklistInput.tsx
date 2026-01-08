@@ -1,5 +1,6 @@
 import { Box, Text, Textarea, HStack } from '@chakra-ui/react';
 import { Button } from './ui/Button';
+import { useTypedTranslation } from '@/i18n';
 
 interface TracklistInputProps {
     value: string;
@@ -15,6 +16,8 @@ const EXAMPLE_TRACKLIST = `1:46 (Intro)
 8:00 Локд Клап`;
 
 export function TracklistInput({ value, onChange, disabled, example = EXAMPLE_TRACKLIST }: TracklistInputProps) {
+    const { t } = useTypedTranslation();
+
     function handleLoadExample() {
         onChange(example);
     }
@@ -24,12 +27,37 @@ export function TracklistInput({ value, onChange, disabled, example = EXAMPLE_TR
     }
 
     const lineCount = value ? value.split('\n').length : 0;
+    const getLineText = (count: number): string => {
+        if (count === 1) {
+            return `${count} ${t('common.line')}`;
+        }
+        return `${count} ${t('common.lines')}`;
+    };
+
+    const getLineTextRu = (count: number): string => {
+        const lastTwo = count % 100;
+        const lastOne = count % 10;
+        if (lastTwo >= 11 && lastTwo <= 19) {
+            return `${count} ${t('common.line_5')}`;
+        }
+        if (lastOne === 1) {
+            return `${count} ${t('common.line_1')}`;
+        }
+        if (lastOne >= 2 && lastOne <= 4) {
+            return `${count} ${t('common.line_2')}`;
+        }
+        return `${count} ${t('common.line_5')}`;
+    };
+
+    const lineText = lineCount === 0 ? '' : (t('common.language') === 'Язык'
+        ? getLineTextRu(lineCount)
+        : getLineText(lineCount));
 
     return (
         <Box width="100%">
             <HStack justify="space-between" mb={2}>
                 <Text fontSize="sm" fontWeight="medium" color="fg.muted">
-                    Tracklist (format: MM:SS Title)
+                    {t('batchCutter.tracklistLabel')}
                 </Text>
                 <HStack gap={2}>
                     {!value && (
@@ -40,7 +68,7 @@ export function TracklistInput({ value, onChange, disabled, example = EXAMPLE_TR
                             onClick={handleLoadExample}
                             disabled={disabled}
                         >
-                            Load Example
+                            {t('batchCutter.loadExample')}
                         </Button>
                     )}
                     {value && (
@@ -51,7 +79,7 @@ export function TracklistInput({ value, onChange, disabled, example = EXAMPLE_TR
                             onClick={handleClear}
                             disabled={disabled}
                         >
-                            Clear
+                            {t('common.clear')}
                         </Button>
                     )}
                 </HStack>
@@ -59,7 +87,7 @@ export function TracklistInput({ value, onChange, disabled, example = EXAMPLE_TR
             <Textarea
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
-                placeholder={`1:46 Track Title\n2:15 Another Track\n...`}
+                placeholder={t('batchCutter.tracklistPlaceholder')}
                 disabled={disabled}
                 rows={8}
                 fontFamily="mono"
@@ -68,7 +96,7 @@ export function TracklistInput({ value, onChange, disabled, example = EXAMPLE_TR
             />
             {value && (
                 <Text fontSize="xs" color="fg.muted" mt={1}>
-                    {lineCount} line{lineCount !== 1 ? 's' : ''}
+                    {lineText}
                 </Text>
             )}
         </Box>

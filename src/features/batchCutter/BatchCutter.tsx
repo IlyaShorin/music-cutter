@@ -1,5 +1,6 @@
 import { Box, VStack } from '@chakra-ui/react';
 import { useBatchCutter } from './useBatchCutter';
+import { useTypedTranslation } from '@/i18n';
 import { TracklistInput } from '../../components/TracklistInput';
 import { TrackListEditor } from '../../components/TrackListEditor';
 import { BatchProgress } from '../../components/BatchProgress';
@@ -22,6 +23,7 @@ function getFullOutputPath(baseFolder: string, sourceFilePath: string): string {
 }
 
 export function BatchCutter() {
+    const { t } = useTypedTranslation();
     const {
         form,
         sourceFileDuration,
@@ -125,7 +127,10 @@ export function BatchCutter() {
 
                 {result?.results.every((r) => r.success) && (
                     <StatusAlert
-                        message={`Successfully processed ${result.tracks_processed} tracks to: ${result.output_folder}`}
+                        message={t('batchCutter.successMessage', {
+                            count: result.tracks_processed,
+                            path: result.output_folder,
+                        })}
                         type="success"
                     />
                 )}

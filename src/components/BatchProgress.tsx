@@ -1,6 +1,7 @@
 import { Box, Text, VStack, HStack } from '@chakra-ui/react';
 import { ProgressBar } from './ProgressBar';
 import type { BatchOutput } from '../types/batch';
+import { useTypedTranslation } from '@/i18n';
 
 interface BatchProgressProps {
     isProcessing: boolean;
@@ -10,6 +11,8 @@ interface BatchProgressProps {
 }
 
 export function BatchProgress({ isProcessing, currentTrack, totalTracks, result }: BatchProgressProps) {
+    const { t } = useTypedTranslation();
+
     if (!isProcessing && !result) {
         return null;
     }
@@ -19,7 +22,9 @@ export function BatchProgress({ isProcessing, currentTrack, totalTracks, result 
     return (
         <Box width="100%">
             <Text fontSize="sm" fontWeight="medium" color="fg.muted" mb={2}>
-                {isProcessing ? `Processing ${currentTrack}/${totalTracks}...` : 'Complete'}
+                {isProcessing
+                    ? t('batchCutter.processing', { current: currentTrack, total: totalTracks })
+                    : t('common.complete')}
             </Text>
             <ProgressBar progress={progress} />
 

@@ -1,5 +1,6 @@
 import { Box, Text, HStack } from '@chakra-ui/react';
 import { TimeField } from './TimeField';
+import { useTypedTranslation } from '@/i18n';
 
 interface TimecodeInputProps {
     label: string;
@@ -24,6 +25,8 @@ export function TimecodeInput({
     disabled = false,
     error,
 }: TimecodeInputProps) {
+    const { t } = useTypedTranslation();
+
     return (
         <Box width="100%">
             <Text fontSize="sm" fontWeight="medium" color="fg.muted" mb={0.5}>
@@ -34,7 +37,7 @@ export function TimecodeInput({
                     value={hours}
                     onChange={onHoursChange}
                     disabled={disabled}
-                    placeholder="HH"
+                    placeholder={t('audioCutter.timeFormat.hours')}
                 />
                 <Text color="fg.muted" fontWeight="bold" paddingTop={4}>
                     :
@@ -43,7 +46,7 @@ export function TimecodeInput({
                     value={minutes}
                     onChange={onMinutesChange}
                     disabled={disabled}
-                    placeholder="MM"
+                    placeholder={t('audioCutter.timeFormat.minutes')}
                 />
                 <Text color="fg.muted" fontWeight="bold" paddingTop={4}>
                     :
@@ -52,7 +55,7 @@ export function TimecodeInput({
                     value={seconds}
                     onChange={onSecondsChange}
                     disabled={disabled}
-                    placeholder="SS"
+                    placeholder={t('audioCutter.timeFormat.seconds')}
                 />
             </HStack>
             {error && (

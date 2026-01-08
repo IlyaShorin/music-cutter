@@ -3,6 +3,7 @@ import { TextInput } from './ui/TextInput';
 import { CoverUploadCompact } from './CoverUploadCompact';
 import type { ParsedTrack } from '../types/batch';
 import { formatSecondsToTimecode } from '../utils/tracklist';
+import { useTypedTranslation } from '@/i18n';
 
 interface TrackRowProps {
     track: ParsedTrack;
@@ -19,6 +20,8 @@ export function TrackRow({
     onTrackDelete,
     disabled,
 }: TrackRowProps) {
+    const { t } = useTypedTranslation();
+
     const handleCoverChange = (data: string | null) => {
         if (data !== null) {
             onCoverChange(track.id, data);
@@ -51,7 +54,7 @@ export function TrackRow({
                 value={track.artist}
                 onChange={(v) => onTrackChange(track.id, 'artist', v)}
                 disabled={isDisabled}
-                placeholder="Artist"
+                placeholder={t('metadata.artist')}
             />
             <CoverUploadCompact
                 coverData={track.coverData}

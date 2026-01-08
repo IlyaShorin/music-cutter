@@ -7,6 +7,7 @@ import { Checkbox } from '../../components/ui/Checkbox';
 import { CutButton } from '../../components/CutButton';
 import { StatusAlert } from '../../components/StatusAlert';
 import { AudioCutterMetadata } from './AudioCutterMetadata';
+import { useTypedTranslation } from '@/i18n';
 
 interface AudioCutterFormProps {
     form: UseAudioCutterResult['form'];
@@ -31,6 +32,7 @@ export function AudioCutterForm({
     onMetadataValuesChange,
     onSubmit,
 }: AudioCutterFormProps) {
+    const { t } = useTypedTranslation();
     const filePath = form.watch('filePath');
     const outputPath = form.watch('outputPath');
     const outputFileName = form.watch('outputFileName');
@@ -61,17 +63,17 @@ export function AudioCutterForm({
         <VStack gap={5} width="100%">
             <Box width="100%">
                 <Text fontSize="sm" fontWeight="medium" color="fg.muted" mb={2}>
-                    Audio File
+                    {t('audioCutter.audioFile')}
                 </Text>
                 <HStack gap={2}>
                     <TextInput
                         value={inputValue}
-                        placeholder="/path/to/audio.mp3"
+                        placeholder={t('audioCutter.placeholder')}
                         disabled={status === 'cutting'}
                         onChange={onInputChange}
                     />
                     <Button onClick={onSelectFile} disabled={status === 'cutting'} colorPalette="blue">
-                        Browse
+                        {t('common.browse')}
                     </Button>
                 </HStack>
                 {filePathError && (
@@ -82,7 +84,7 @@ export function AudioCutterForm({
             </Box>
 
             <TimecodeInput
-                label="Start Time"
+                label={t('audioCutter.startTime')}
                 hours={form.watch('startTimeHours')}
                 minutes={form.watch('startTimeMinutes')}
                 seconds={form.watch('startTimeSeconds')}
@@ -94,7 +96,7 @@ export function AudioCutterForm({
             />
 
             <TimecodeInput
-                label="End Time"
+                label={t('audioCutter.endTime')}
                 hours={form.watch('endTimeHours')}
                 minutes={form.watch('endTimeMinutes')}
                 seconds={form.watch('endTimeSeconds')}
@@ -109,17 +111,17 @@ export function AudioCutterForm({
 
             <Box width="100%">
                 <Text fontSize="sm" fontWeight="medium" color="fg.muted" mb={2}>
-                    Output File
+                    {t('audioCutter.outputFile')}
                 </Text>
                 <HStack gap={2}>
                     <TextInput
                         value={outputFileName}
-                        placeholder="fragment"
+                        placeholder={t('audioCutter.placeholderFragment')}
                         disabled={status === 'cutting'}
                         onChange={(v) => form.setValue('outputFileName', v)}
                     />
                     <Button onClick={onSelectOutput} disabled={status === 'cutting'} colorPalette="blue">
-                        Save As
+                        {t('common.saveAs')}
                     </Button>
                 </HStack>
                 {outputPath && (
@@ -136,7 +138,7 @@ export function AudioCutterForm({
 
             <Box width="100%">
                 <Text fontSize="sm" fontWeight="medium" color="fg.muted" mb={2}>
-                    Audio Effects
+                    {t('audioCutter.audioEffects')}
                 </Text>
                 <HStack gap={4}>
                     <HStack gap={2}>
@@ -146,7 +148,7 @@ export function AudioCutterForm({
                             disabled={status === 'cutting'}
                         />
                         <Text fontSize="sm" color="fg.muted">
-                            Fade In (3s)
+                            {t('audioCutter.fadeIn')}
                         </Text>
                     </HStack>
                     <HStack gap={2}>
@@ -156,7 +158,7 @@ export function AudioCutterForm({
                             disabled={status === 'cutting'}
                         />
                         <Text fontSize="sm" color="fg.muted">
-                            Fade Out (3s)
+                            {t('audioCutter.fadeOut')}
                         </Text>
                     </HStack>
                 </HStack>
@@ -167,7 +169,7 @@ export function AudioCutterForm({
             {error && <StatusAlert message={error} type="error" />}
 
             {status === 'success' && (
-                <StatusAlert message="Audio fragment saved successfully!" type="success" />
+                <StatusAlert message={t('audioCutter.success')} type="success" />
             )}
         </VStack>
     );

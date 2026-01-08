@@ -6,6 +6,7 @@ import {
 } from '@chakra-ui/react';
 import { MetadataField } from '../../components/MetadataField';
 import { CoverUpload } from '../../components/CoverUpload';
+import { useTypedTranslation } from '@/i18n';
 
 interface MetadataFormProps {
     title: string;
@@ -40,52 +41,54 @@ export function MetadataForm({
     onFieldChange,
     onCoverChange,
 }: MetadataFormProps) {
+    const { t } = useTypedTranslation();
+
     return (
         <Grid templateColumns="1fr 1fr" gap={4} gapX={6}>
             <MetadataField
-                label="Title"
+                label={t('metadata.title')}
                 value={title}
                 onChange={(v) => onFieldChange('title', v)}
             />
             <MetadataField
-                label="Artist"
+                label={t('metadata.artist')}
                 value={artist}
                 onChange={(v) => onFieldChange('artist', v)}
             />
             <MetadataField
-                label="Album"
+                label={t('metadata.album')}
                 value={album}
                 onChange={(v) => onFieldChange('album', v)}
             />
             <MetadataField
-                label="Album Artist"
+                label={t('metadata.albumArtist')}
                 value={albumArtist}
                 onChange={(v) => onFieldChange('albumArtist', v)}
             />
             <MetadataField
-                label="Composer"
+                label={t('metadata.composer')}
                 value={composer}
                 onChange={(v) => onFieldChange('composer', v)}
             />
             <MetadataField
-                label="Genre"
+                label={t('metadata.genre')}
                 value={genre}
                 onChange={(v) => onFieldChange('genre', v)}
             />
             <MetadataField
-                label="Year"
+                label={t('metadata.year')}
                 value={year}
                 onChange={(v) => onFieldChange('year', v)}
                 placeholder="—"
             />
             <MetadataField
-                label="Track"
+                label={t('metadata.track')}
                 value={trackNumber}
                 onChange={(v) => onFieldChange('trackNumber', v)}
                 placeholder="—"
             />
             <MetadataField
-                label="Disc"
+                label={t('metadata.disc')}
                 value={discNumber}
                 onChange={(v) => onFieldChange('discNumber', v)}
                 placeholder="—"
@@ -102,12 +105,12 @@ export function MetadataForm({
                 </Checkbox.Control>
                 <Checkbox.Label>
                     <Text fontSize="sm" color="fg.muted">
-                        Compilation
+                        {t('metadata.compilation')}
                     </Text>
                 </Checkbox.Label>
             </Checkbox.Root>
             <MetadataField
-                label="Comment"
+                label={t('metadata.comment')}
                 value={comment}
                 onChange={(v) => onFieldChange('comment', v)}
                 gridColumn="1 / -1"

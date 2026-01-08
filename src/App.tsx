@@ -2,11 +2,14 @@ import { useEffect, useState } from 'react';
 import { Box, Flex, Tabs, TabsList, TabsTrigger, TabsContent } from '@chakra-ui/react';
 import { FFmpegProvider, useFFmpeg } from './contexts/FFmpegContext';
 import { FfmpegInstallDialog } from './components/FfmpegInstallDialog';
+import { LanguageToggle } from './components/LanguageToggle';
 import { ThemeToggle } from './components/ThemeToggle';
 import { AudioCutter } from './features/audioCutter/AudioCutter';
 import { BatchCutter } from './features/batchCutter/BatchCutter';
+import { useTypedTranslation } from '@/i18n';
 
 function AppContent() {
+    const { t } = useTypedTranslation();
     const { status, isLoading, check, download, isDownloading, downloadProgress } = useFFmpeg();
     const [showInstallDialog, setShowInstallDialog] = useState(false);
     const [hasCheckedOnMount, setHasCheckedOnMount] = useState(false);
@@ -45,7 +48,8 @@ function AppContent() {
 
     return (
         <Box py={10} px={20}>
-            <Flex justify="end" mb={2}>
+            <Flex justify="end" mb={2} gap={2}>
+                <LanguageToggle />
                 <ThemeToggle />
             </Flex>
             <FfmpegInstallDialog
@@ -58,8 +62,8 @@ function AppContent() {
             />
             <Tabs.Root defaultValue="single" variant="enclosed" width="100%">
                 <TabsList pb={0}>
-                    <TabsTrigger value="single">Single Cut</TabsTrigger>
-                    <TabsTrigger value="batch">Batch</TabsTrigger>
+                    <TabsTrigger value="single">{t('tabs.singleCut')}</TabsTrigger>
+                    <TabsTrigger value="batch">{t('tabs.batch')}</TabsTrigger>
                 </TabsList>
                 <TabsContent value="single" p={0}>
                     <AudioCutter />

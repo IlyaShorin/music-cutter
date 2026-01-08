@@ -3,6 +3,7 @@ import { TrackRow } from './TrackRow';
 import { TrackListHeader } from './TrackListHeader';
 import { Button } from './ui/Button';
 import type { ParsedTrack } from '../types/batch';
+import { useTypedTranslation } from '@/i18n';
 
 interface TrackListEditorProps {
     tracks: ParsedTrack[];
@@ -27,6 +28,8 @@ export function TrackListEditor({
     onApplyFadeOutToAll,
     disabled,
 }: TrackListEditorProps) {
+    const { t } = useTypedTranslation();
+
     if (tracks.length === 0) {
         return null;
     }
@@ -34,7 +37,7 @@ export function TrackListEditor({
     return (
         <Box width="100%">
             <Text fontSize="sm" fontWeight="medium" color="fg.muted" mb={2}>
-                Parsed Tracks ({tracks.length})
+                {t('batchCutter.parsedTracks', { count: tracks.length })}
             </Text>
             <Box display="flex" gap={4} alignItems="flex-start">
                 <Box
@@ -66,7 +69,7 @@ export function TrackListEditor({
                                 onClick={onApplyArtistToAll}
                                 disabled={disabled}
                             >
-                                Apply Artist to all
+                                {t('batchCutter.applyArtistToAll')}
                             </Button>
                         )}
                         {onApplyCoverToAll && (
@@ -76,7 +79,7 @@ export function TrackListEditor({
                                 onClick={onApplyCoverToAll}
                                 disabled={disabled}
                             >
-                                Apply Cover to all
+                                {t('batchCutter.applyCoverToAll')}
                             </Button>
                         )}
                         {onApplyFadeInToAll && (
@@ -86,7 +89,7 @@ export function TrackListEditor({
                                 onClick={onApplyFadeInToAll}
                                 disabled={disabled}
                             >
-                                Apply Fade In to all
+                                {t('batchCutter.applyFadeInToAll')}
                             </Button>
                         )}
                         {onApplyFadeOutToAll && (
@@ -96,7 +99,7 @@ export function TrackListEditor({
                                 onClick={onApplyFadeOutToAll}
                                 disabled={disabled}
                             >
-                                Apply Fade Out to all
+                                {t('batchCutter.applyFadeOutToAll')}
                             </Button>
                         )}
                     </Box>

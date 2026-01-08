@@ -2,6 +2,7 @@ import { Box, HStack, Text, VStack } from '@chakra-ui/react';
 import { Button } from '../../components/ui/Button';
 import { TextInput } from '../../components/ui/TextInput';
 import { formatSecondsToTimecode } from '../../utils/tracklist';
+import { useTypedTranslation } from '@/i18n';
 
 interface SourceFileSectionProps {
     filePath: string;
@@ -20,28 +21,29 @@ export function SourceFileSection({
     onSelectFile,
     onSelectOutputFolder,
 }: SourceFileSectionProps) {
+    const { t } = useTypedTranslation();
     const folderName = outputFolderPath.split(/[/\\]/).pop() || '';
 
     return (
         <VStack gap={3} width="100%">
             <Box width="100%">
                 <Text fontSize="sm" fontWeight="medium" color="fg.muted" mb={2}>
-                    Audio File
+                    {t('batchCutter.audioFile')}
                 </Text>
                 <HStack gap={2}>
                     <TextInput
                         value={filePath}
-                        placeholder="/path/to/audio.mp3"
+                        placeholder={t('audioCutter.placeholder')}
                         disabled={isProcessing}
                         readOnly
                     />
                     <Button onClick={onSelectFile} disabled={isProcessing} colorPalette="blue">
-                        Browse
+                        {t('common.browse')}
                     </Button>
                 </HStack>
                 {duration > 0 && (
                     <Text fontSize="xs" color="fg.muted" mt={1}>
-                        Duration: {formatSecondsToTimecode(duration)}
+                        {t('batchCutter.duration')}: {formatSecondsToTimecode(duration)}
                     </Text>
                 )}
             </Box>
@@ -49,17 +51,17 @@ export function SourceFileSection({
             {filePath && (
                 <Box width="100%">
                     <Text fontSize="sm" fontWeight="medium" color="fg.muted" mb={2}>
-                        Output Folder
+                        {t('batchCutter.outputFolder')}
                     </Text>
                     <HStack gap={2}>
                         <TextInput
                             value={folderName}
-                            placeholder="Select folder"
+                            placeholder={t('batchCutter.selectFolder')}
                             disabled={isProcessing}
                             readOnly
                         />
                         <Button onClick={onSelectOutputFolder} disabled={isProcessing} colorPalette="blue">
-                            Save As
+                            {t('common.saveAs')}
                         </Button>
                     </HStack>
                     {outputFolderPath && (

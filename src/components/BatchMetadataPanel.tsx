@@ -1,6 +1,7 @@
 import { Box, Text, HStack } from '@chakra-ui/react';
 import { TextInput } from './ui/TextInput';
 import { CoverUpload } from './CoverUpload';
+import { useTypedTranslation } from '@/i18n';
 
 interface BatchMetadataPanelProps {
     defaultArtist: string;
@@ -62,10 +63,12 @@ export function BatchMetadataPanel({
     onApplyCoverToAllChange,
     disabled,
 }: BatchMetadataPanelProps) {
+    const { t } = useTypedTranslation();
+
     return (
         <Box width="100%">
             <Text fontSize="sm" fontWeight="medium" color="fg.muted" mb={3}>
-                Apply to all tracks
+                {t('batchCutter.applyToAllTracks')}
             </Text>
 
             <HStack gap={6} alignItems="flex-start">
@@ -74,14 +77,14 @@ export function BatchMetadataPanel({
                         checked={applyArtistToAll}
                         onChange={onApplyArtistToAllChange}
                         disabled={disabled}
-                        label="Artist"
+                        label={t('metadata.artist')}
                     />
                     <Box mt={2}>
                         <TextInput
                             value={defaultArtist}
                             onChange={onDefaultArtistChange}
                             disabled={disabled || !applyArtistToAll}
-                            placeholder="Artist name"
+                            placeholder={t('batchCutter.artistName')}
                         />
                     </Box>
                 </Box>
@@ -91,7 +94,7 @@ export function BatchMetadataPanel({
                         checked={applyCoverToAll}
                         onChange={onApplyCoverToAllChange}
                         disabled={disabled}
-                        label="Cover"
+                        label={t('metadata.cover')}
                     />
                     <CoverUpload
                         coverData={applyCoverToAll ? defaultCover : null}

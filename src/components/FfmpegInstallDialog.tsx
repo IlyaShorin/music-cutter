@@ -1,4 +1,5 @@
 import { Box, Text, Button, VStack, Progress, Dialog } from '@chakra-ui/react';
+import { useTypedTranslation } from '@/i18n';
 
 interface FfmpegInstallDialogProps {
     open: boolean;
@@ -10,23 +11,27 @@ interface FfmpegInstallDialogProps {
 }
 
 export function FfmpegInstallDialog({ open, onClose, onInstall, isDownloading, downloadProgress, error }: FfmpegInstallDialogProps) {
+    const { t } = useTypedTranslation();
+
     return (
         <Dialog.Root open={open} onOpenChange={({ open }) => !open && onClose()}>
             <Dialog.Content>
                 <Dialog.Header p={4}>
-                    <Dialog.Title>FFmpeg Required</Dialog.Title>
+                    <Dialog.Title>{t('ffmpeg.title')}</Dialog.Title>
                 </Dialog.Header>
                 <Dialog.Body>
                     <VStack gap={4} align="stretch">
                         <Text>
-                            FFmpeg is not installed on your system. This app requires FFmpeg to cut audio files.
+                            {t('ffmpeg.message')}
                         </Text>
                         <Text fontSize="sm" color="fg.muted">
-                            You can install FFmpeg manually or download it automatically.
+                            {t('ffmpeg.help')}
                         </Text>
                         {isDownloading && (
                             <Box>
-                                <Text fontSize="sm" mb={2}>Downloading... {downloadProgress}%</Text>
+                                <Text fontSize="sm" mb={2}>
+                                    {t('ffmpeg.downloading', { progress: downloadProgress ?? 0 })}
+                                </Text>
                                 <Progress.Root value={downloadProgress}>
                                     <Progress.Track>
                                         <Progress.Range />
@@ -41,14 +46,14 @@ export function FfmpegInstallDialog({ open, onClose, onInstall, isDownloading, d
                 </Dialog.Body>
                 <Dialog.Footer>
                     <Button variant="ghost" onClick={onClose} disabled={isDownloading}>
-                        Cancel
+                        {t('ffmpeg.cancel')}
                     </Button>
                     <Button
                         colorPalette="blue"
                         onClick={onInstall}
                         disabled={isDownloading}
                     >
-                        {isDownloading ? 'Downloading...' : 'Download FFmpeg'}
+                        {isDownloading ? t('ffmpeg.downloading', { progress: downloadProgress ?? 0 }) : t('ffmpeg.downloadButton')}
                     </Button>
                 </Dialog.Footer>
             </Dialog.Content>

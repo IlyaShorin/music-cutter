@@ -1,5 +1,6 @@
 import { Box, Input, Text } from '@chakra-ui/react';
 import { Button } from './ui/Button';
+import { useTypedTranslation } from '@/i18n';
 
 interface FileSelectorProps {
     filePath: string;
@@ -8,21 +9,23 @@ interface FileSelectorProps {
 }
 
 export function FileSelector({ filePath, onSelect, disabled }: FileSelectorProps) {
+    const { t } = useTypedTranslation();
+
     return (
         <Box>
             <Text fontSize="sm" fontWeight="medium" color="fg.muted" mb={2}>
-                Audio File
+                {t('audioCutter.audioFile')}
             </Text>
             <Box display="flex" gap={2}>
                 <Input
                     value={filePath}
-                    placeholder="No file selected"
+                    placeholder={t('common.noFileSelected')}
                     readOnly
                     bg="bg.subtle"
                     flex={1}
                 />
                 <Button onClick={onSelect} disabled={disabled} colorPalette="blue">
-                    Browse
+                    {t('common.browse')}
                 </Button>
             </Box>
         </Box>

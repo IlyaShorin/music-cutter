@@ -1,6 +1,7 @@
 import { Image } from '@chakra-ui/react';
 import { Button } from './ui/Button';
 import { useCoverUpload } from '../hooks/useCoverUpload';
+import { useTypedTranslation } from '@/i18n';
 
 interface CoverUploadCompactProps {
     coverData: string | null;
@@ -9,6 +10,7 @@ interface CoverUploadCompactProps {
 }
 
 export function CoverUploadCompact({ coverData, onCoverChange, disabled }: CoverUploadCompactProps) {
+    const { t } = useTypedTranslation();
     const { inputRef, handleFileChange, handleClick } = useCoverUpload(onCoverChange);
 
     const isDisabled = disabled ?? false;
@@ -25,7 +27,7 @@ export function CoverUploadCompact({ coverData, onCoverChange, disabled }: Cover
             {coverData ? (
                 <Image
                     src={coverData}
-                    alt="Cover"
+                    alt={t('metadata.cover')}
                     boxSize="32px"
                     objectFit="cover"
                     borderRadius="sm"

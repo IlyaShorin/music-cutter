@@ -5,6 +5,7 @@ import { formatTimecode } from '../../utils/time';
 import type { MetadataValues } from '../metadataEditor/MetadataEditor';
 import type { UseFormReturn } from 'react-hook-form';
 import type { AudioCutterForm } from './useAudioCutterForm';
+import { useTypedTranslation } from '@/i18n';
 
 interface UseAudioCutterSubmissionResult {
     status: CutStatus;
@@ -17,6 +18,7 @@ interface UseAudioCutterSubmissionResult {
 }
 
 export function useAudioCutterSubmission(): UseAudioCutterSubmissionResult {
+    const { t } = useTypedTranslation();
     const [status, setStatus] = useState<CutStatus>('idle');
     const [error, setError] = useState<string | null>(null);
 
@@ -35,12 +37,12 @@ export function useAudioCutterSubmission(): UseAudioCutterSubmissionResult {
                 const endHasValue = values.endTimeHours || values.endTimeMinutes || values.endTimeSeconds;
 
                 if (!startHasValue) {
-                    setFieldError('startTimeHours', { type: 'required', message: 'Timecode is required' });
+                    setFieldError('startTimeHours', { type: 'required', message: t('audioCutter.validation.timecodeRequired') });
                     return;
                 }
 
                 if (!endHasValue) {
-                    setFieldError('endTimeHours', { type: 'required', message: 'Timecode is required' });
+                    setFieldError('endTimeHours', { type: 'required', message: t('audioCutter.validation.timecodeRequired') });
                     return;
                 }
 
@@ -51,7 +53,7 @@ export function useAudioCutterSubmission(): UseAudioCutterSubmissionResult {
                 }
 
                 if (!values.outputPath.trim()) {
-                    setFieldError('outputPath', { type: 'required', message: 'Please select output location' });
+                    setFieldError('outputPath', { type: 'required', message: t('audioCutter.validation.pleaseSelectOutput') });
                     return;
                 }
 
@@ -101,7 +103,7 @@ export function useAudioCutterSubmission(): UseAudioCutterSubmissionResult {
                 }
             };
         },
-        [status]
+        [status, t]
     );
 
     return { status, error, handleSubmit };

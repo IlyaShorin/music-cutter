@@ -6,6 +6,7 @@ import type { UseFormReturn } from 'react-hook-form';
 import { formatSecondsToTimecode } from '../../utils/tracklist';
 import type { BatchOutput } from '../../types/batch';
 import { invoke } from '@tauri-apps/api/core';
+import { useTypedTranslation } from '@/i18n';
 
 function getOutputSubfolderName(sourceFilePath: string): string {
     const fileName = sourceFilePath.split(/[/\\]/).pop() || '';
@@ -28,17 +29,18 @@ export function useBatchCutterProcess(
     setError: (error: string | null) => void
 ) {
     const { getValues } = form;
+    const { t } = useTypedTranslation();
 
     const handleProcess = useCallback(async () => {
         const values = getValues();
 
         if (!values.sourceFilePath || parsedTracks.length === 0) {
-            setError('Please select a file and parse tracklist');
+            setError(t('batchCutter.errors.noFileOrTracks'));
             return;
         }
 
         if (!values.baseOutputFolder) {
-            setError('Please select output folder');
+            setError(t('batchCutter.errors.noOutputFolder'));
             return;
         }
 
@@ -51,7 +53,7 @@ export function useBatchCutterProcess(
         try {
             await invoke('clear_output_folder', { path: outputFolder });
         } catch (e) {
-            setError(`Failed to clear output folder: ${e}`);
+            setError(`${t('batchCutter.errors.clearFolderFailed')}: ${e}`);
             setIsProcessing(false);
             return;
         }
@@ -99,7 +101,7 @@ export function useBatchCutterProcess(
             results,
         });
         setIsProcessing(false);
-    }, [parsedTracks, getValues, setIsProcessing, setCurrentTrack, setResult, setError]);
+    }, [parsedTracks, getValues, setIsProcessing, setCurrentTrack, setResult, setError, t]);
 
     return { handleProcess };
 }

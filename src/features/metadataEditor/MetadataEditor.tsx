@@ -2,6 +2,7 @@ import { Box, Text, VStack } from '@chakra-ui/react';
 import { useMetadata } from './useMetadata';
 import { MetadataForm } from './MetadataForm';
 import { useEffect, useRef, useCallback } from 'react';
+import { useTypedTranslation } from '@/i18n';
 
 export interface MetadataValues {
     title: string;
@@ -24,6 +25,7 @@ interface MetadataEditorProps {
 }
 
 export function MetadataEditor({ filePath, onMetadataChange, onValuesChange }: MetadataEditorProps) {
+    const { t } = useTypedTranslation();
     const { form, status, coverData, loadMetadata, setCoverData } = useMetadata({ onMetadataChange });
 
     const lastLoadedPath = useRef<string | null>(null);
@@ -57,7 +59,7 @@ export function MetadataEditor({ filePath, onMetadataChange, onValuesChange }: M
     if (status === 'reading') {
         return (
             <Box p={4}>
-                <Text color="fg.muted">Loading metadata...</Text>
+                <Text color="fg.muted">{t('common.loading')}</Text>
             </Box>
         );
     }

@@ -1,6 +1,7 @@
 import { Box, Text, HStack, Image, GridProps } from '@chakra-ui/react';
 import { Button } from './ui/Button';
 import { useCoverUpload } from '../hooks/useCoverUpload';
+import { useTypedTranslation } from '@/i18n';
 
 interface CoverUploadProps {
     coverData: string | null;
@@ -12,18 +13,19 @@ type GridColProps = {
 };
 
 export function CoverUpload({ coverData, onCoverChange }: CoverUploadProps & GridColProps) {
+    const { t } = useTypedTranslation();
     const { inputRef, handleFileChange, handleRemove, handleClick } = useCoverUpload(onCoverChange);
 
     return (
         <Box>
             <Text fontSize="xs" fontWeight="medium" color="fg.muted" mb={2}>
-                Cover Art
+                {t('metadata.coverArt')}
             </Text>
             <HStack gap={3}>
                 {coverData && (
                     <Image
                         src={coverData}
-                        alt="Cover"
+                        alt={t('metadata.cover')}
                         boxSize="60px"
                         objectFit="cover"
                         borderRadius="md"
@@ -42,7 +44,7 @@ export function CoverUpload({ coverData, onCoverChange }: CoverUploadProps & Gri
                         size="sm"
                         onClick={handleClick}
                     >
-                        {coverData ? 'Change' : 'Upload'}
+                        {coverData ? t('coverUpload.change') : t('coverUpload.upload')}
                     </Button>
                     {coverData && (
                         <Button
@@ -51,7 +53,7 @@ export function CoverUpload({ coverData, onCoverChange }: CoverUploadProps & Gri
                             colorPalette="red"
                             onClick={handleRemove}
                         >
-                            Remove
+                            {t('common.remove')}
                         </Button>
                     )}
                 </HStack>
