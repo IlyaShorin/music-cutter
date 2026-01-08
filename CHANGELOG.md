@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/IlyaShorin/music-cutter/compare/v1.2.0...v1.3.0) (2026-01-08)
+
+
+### Features
+
+* Add Claude Code GitHub Workflow ([03d4c5c](https://github.com/IlyaShorin/music-cutter/commit/03d4c5cc894725e092c2b0797743d67ba8d42c73))
+
 # [1.2.0](https://github.com/IlyaShorin/music-cutter/compare/v1.1.0...v1.2.0) (2026-01-08)
 
 
