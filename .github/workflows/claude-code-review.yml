@@ -38,6 +38,15 @@ jobs:
         uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          settings: |
+            {
+              "enableAllProjectMcpServers": false,
+              "env": {
+                "DEBUG": "true",
+                "ANTHROPIC_BASE_URL": "https://api.z.ai/api/anthropic"
+              }
+            }
+          show_full_output: true
           prompt: |
             REPO: ${{ github.repository }}
             PR NUMBER: ${{ github.event.pull_request.number }}
