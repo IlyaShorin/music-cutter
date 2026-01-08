@@ -1,3 +1,10 @@
+## [1.4.8](https://github.com/IlyaShorin/music-cutter/compare/v1.4.7...v1.4.8) (2026-01-08)
+
+
+### Bug Fixes
+
+* remove invalid anthropic_model param ([b40d5db](https://github.com/IlyaShorin/music-cutter/commit/b40d5dbd2b03eb14e7b5c7131737da186d8a983a))
+
 ## [1.4.7](https://github.com/IlyaShorin/music-cutter/compare/v1.4.6...v1.4.7) (2026-01-08)
 
 
