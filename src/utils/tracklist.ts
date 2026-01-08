@@ -1,6 +1,6 @@
 import type { ParsedTrack } from '../types/batch';
 
-const TRACK_LINE_REGEX = /^(\d{1,2}):(\d{2})\s+(.*)$/;
+const TRACK_LINE_REGEX = /^(?:(\d{1,2}):)?(\d{1,2}):(\d{2})\s+(.*)$/;
 
 export function parseTimecode(timeStr: string): number {
     const parts = timeStr.split(':').map(Number);
@@ -39,8 +39,11 @@ export function parseTracklist(input: string, fileDuration: number): ParsedTrack
         const match = line.match(TRACK_LINE_REGEX);
         if (!match) continue;
 
-        const [, minutesStr, secondsStr, title] = match;
-        const startTime = parseInt(minutesStr, 10) * 60 + parseInt(secondsStr, 10);
+        const [, hoursStr, minutesStr, secondsStr, title] = match;
+        const hours = hoursStr ? parseInt(hoursStr, 10) : 0;
+        const minutes = parseInt(minutesStr, 10);
+        const seconds = parseInt(secondsStr, 10);
+        const startTime = hours * 3600 + minutes * 60 + seconds;
 
         let endTime: number | null = null;
 
@@ -51,9 +54,10 @@ export function parseTracklist(input: string, fileDuration: number): ParsedTrack
 
             const nextMatch = nextLine.match(TRACK_LINE_REGEX);
             if (nextMatch) {
-                const nextMinutes = parseInt(nextMatch[1], 10);
-                const nextSeconds = parseInt(nextMatch[2], 10);
-                endTime = nextMinutes * 60 + nextSeconds;
+                const nextHours = nextMatch[1] ? parseInt(nextMatch[1], 10) : 0;
+                const nextMinutes = parseInt(nextMatch[2], 10);
+                const nextSeconds = parseInt(nextMatch[3], 10);
+                endTime = nextHours * 3600 + nextMinutes * 60 + nextSeconds;
                 break;
             }
         }
