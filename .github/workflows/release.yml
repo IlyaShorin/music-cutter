@@ -11,6 +11,9 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -25,6 +28,39 @@ jobs:
         run: npm install -g semantic-release @semantic-release/git @semantic-release/changelog @semantic-release/exec
 
       - name: Release
+        id: release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx semantic-release
+        run: |
+          output=$(npx semantic-release 2>&1 || true)
+          echo "$output"
+
+          if echo "$output" | grep -q "Published release"; then
+            echo "release_created=true" >> $GITHUB_OUTPUT
+            tag_name=$(echo "$output" | grep -oP '(?<=Published release )[^ ]+' || echo "")
+            echo "tag_name=$tag_name" >> $GITHUB_OUTPUT
+          fi
+
+  build:
+    needs: release
+    if: needs.release.outputs.release_created == 'true'
+    strategy:
+      matrix:
+        platform: [macos-latest, windows-latest]
+
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Tauri app
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
