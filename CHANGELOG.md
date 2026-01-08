@@ -1,3 +1,10 @@
+## [1.4.11](https://github.com/IlyaShorin/music-cutter/compare/v1.4.10...v1.4.11) (2026-01-08)
+
+
+### Bug Fixes
+
+* download both ffmpeg and ffprobe on macOS auto-install ([4bd476b](https://github.com/IlyaShorin/music-cutter/commit/4bd476bc46a085362fa397793f106fc475a76766))
+
 ## [1.4.10](https://github.com/IlyaShorin/music-cutter/compare/v1.4.9...v1.4.10) (2026-01-08)
 
 
