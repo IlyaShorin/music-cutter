@@ -1,3 +1,10 @@
+## [1.4.2](https://github.com/IlyaShorin/music-cutter/compare/v1.4.1...v1.4.2) (2026-01-08)
+
+
+### Bug Fixes
+
+* use cross-platform path separators for Windows compatibility ([1892265](https://github.com/IlyaShorin/music-cutter/commit/189226585e0bb48212e9afcadaac2b9df5d52e1e))
+
 ## [1.4.1](https://github.com/IlyaShorin/music-cutter/compare/v1.4.0...v1.4.1) (2026-01-08)
 
 
