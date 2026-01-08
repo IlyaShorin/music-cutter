@@ -42,7 +42,7 @@ pub fn read_metadata(file_path: &str) -> Result<MetadataOutput, String> {
     let cover_image_data = tag
         .pictures()
         .next()
-        .map(|pic| data_url_from_picture(pic));
+        .map(data_url_from_picture);
 
     Ok(MetadataOutput {
         title,

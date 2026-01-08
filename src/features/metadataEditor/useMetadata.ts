@@ -1,24 +1,10 @@
-import { useForm } from 'react-hook-form';
 import { useState, useCallback } from 'react';
 import { getAudioMetadata, setAudioMetadata } from '../../api/metadata';
 import type { MetadataStatus } from '../../types/metadata';
-
-interface MetadataForm {
-    title: string;
-    artist: string;
-    album: string;
-    album_artist: string;
-    composer: string;
-    genre: string;
-    year: string;
-    track_number: string;
-    disc_number: string;
-    is_compilation: boolean;
-    comment: string;
-}
+import { useMetadataForm, DEFAULT_METADATA_FORM_VALUES, type MetadataForm } from './useMetadataForm';
 
 interface UseMetadataResult {
-    form: ReturnType<typeof useForm<MetadataForm>>;
+    form: ReturnType<typeof useMetadataForm>;
     status: MetadataStatus;
     error: string | null;
     coverData: string | null;
@@ -36,40 +22,13 @@ export function useMetadata({ onMetadataChange }: UseMetadataProps = {}): UseMet
     const [error, setError] = useState<string | null>(null);
     const [coverData, setCoverData] = useState<string | null>(null);
 
-    const form = useForm<MetadataForm>({
-        defaultValues: {
-            title: '',
-            artist: '',
-            album: '',
-            album_artist: '',
-            composer: '',
-            genre: '',
-            year: '',
-            track_number: '',
-            disc_number: '',
-            is_compilation: false,
-            comment: '',
-        },
-        mode: 'onTouched',
-    });
+    const form = useMetadataForm();
 
     const loadMetadata = useCallback(async (filePath: string) => {
         if (filePath.startsWith('http')) {
             setStatus('idle');
             setError(null);
-            form.reset({
-                title: '',
-                artist: '',
-                album: '',
-                album_artist: '',
-                composer: '',
-                genre: '',
-                year: '',
-                track_number: '',
-                disc_number: '',
-                is_compilation: false,
-                comment: '',
-            });
+            form.reset(DEFAULT_METADATA_FORM_VALUES);
             setCoverData(null);
             return;
         }
@@ -103,19 +62,7 @@ export function useMetadata({ onMetadataChange }: UseMetadataProps = {}): UseMet
         } catch (e) {
             const message = String(e);
             if (message.includes('NoTag')) {
-                form.reset({
-                    title: '',
-                    artist: '',
-                    album: '',
-                    album_artist: '',
-                    composer: '',
-                    genre: '',
-                    year: '',
-                    track_number: '',
-                    disc_number: '',
-                    is_compilation: false,
-                    comment: '',
-                });
+                form.reset(DEFAULT_METADATA_FORM_VALUES);
                 setCoverData(null);
                 setStatus('idle');
             } else {
@@ -170,3 +117,5 @@ export function useMetadata({ onMetadataChange }: UseMetadataProps = {}): UseMet
         setCoverData,
     };
 }
+
+export type { MetadataForm };

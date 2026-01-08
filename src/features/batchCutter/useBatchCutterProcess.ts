@@ -49,7 +49,10 @@ export function useBatchCutterProcess(
 
         try {
             await invoke('clear_output_folder', { path: outputFolder });
-        } catch {
+        } catch (e) {
+            setError(`Failed to clear output folder: ${e}`);
+            setIsProcessing(false);
+            return;
         }
 
         const results: BatchOutput['results'] = [];

@@ -61,6 +61,7 @@ impl Timecode {
         }
     }
 
+    #[allow(clippy::wrong_self_convention)]
     pub fn to_seconds(&self) -> u64 {
         self.hours * 3600 + self.minutes * 60 + self.seconds
     }

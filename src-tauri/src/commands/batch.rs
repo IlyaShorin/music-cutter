@@ -8,6 +8,31 @@ fn sanitize_filename(name: &str) -> String {
     name.replace(FORBIDDEN_CHARS, "_")
 }
 
+fn write_track_metadata(
+    output_path: String,
+    title: String,
+    artist: Option<String>,
+    cover: Option<String>,
+) -> Result<(), String> {
+    write_metadata(&MetadataInput {
+        file_path: output_path,
+        title: Some(title),
+        artist,
+        cover_image_data: cover,
+        album: None,
+        album_artist: None,
+        composer: None,
+        genre: None,
+        year: None,
+        track_number: None,
+        total_tracks: None,
+        disc_number: None,
+        total_discs: None,
+        is_compilation: None,
+        comment: None,
+    })
+}
+
 fn format_seconds_as_hms(seconds: u64) -> String {
     let hours = seconds / 3600;
     let minutes = (seconds % 3600) / 60;
@@ -61,23 +86,7 @@ pub async fn cut_audio_batch(input: BatchInput) -> Result<BatchOutput, String> {
         let success = cut_result.is_ok();
 
         if success {
-            if let Err(e) = write_metadata(&MetadataInput {
-                file_path: output_path.clone(),
-                title: Some(track.title.clone()),
-                artist: artist.clone(),
-                cover_image_data: cover,
-                album: None,
-                album_artist: None,
-                composer: None,
-                genre: None,
-                year: None,
-                track_number: None,
-                total_tracks: None,
-                disc_number: None,
-                total_discs: None,
-                is_compilation: None,
-                comment: None,
-            }) {
+            if let Err(e) = write_track_metadata(output_path.clone(), track.title.clone(), artist.clone(), cover) {
                 results.push(TrackResult {
                     title: track.title.clone(),
                     output_path,
@@ -162,23 +171,12 @@ pub async fn cut_single_track(input: SingleTrackInput) -> Result<SingleTrackOutp
     let success = cut_result.is_ok();
 
     if success {
-        if let Err(e) = write_metadata(&MetadataInput {
-            file_path: output_path.clone(),
-            title: Some(input.track.title.clone()),
-            artist: artist.clone(),
-            cover_image_data: cover,
-            album: None,
-            album_artist: None,
-            composer: None,
-            genre: None,
-            year: None,
-            track_number: None,
-            total_tracks: None,
-            disc_number: None,
-            total_discs: None,
-            is_compilation: None,
-            comment: None,
-        }) {
+        if let Err(e) = write_track_metadata(
+            output_path.clone(),
+            input.track.title.clone(),
+            artist.clone(),
+            cover,
+        ) {
             return Ok(SingleTrackOutput {
                 result: TrackResult {
                     title: input.track.title,

@@ -50,7 +50,7 @@ fn cut_audio_internal(
     cmd.arg("-i")
         .arg(input_path)
         .arg("-ss")
-        .arg(&start.to_string())
+        .arg(start.to_string())
         .arg("-t")
         .arg(duration.to_string());
 
@@ -110,12 +110,13 @@ pub fn cut_audio(
     if has_filters {
         let temp_dir = std::env::temp_dir();
         let temp_file = temp_dir.join(format!("music_cutter_temp_{}.mp3", std::process::id()));
+        let temp_path = temp_file.to_str().ok_or_else(|| "Invalid temp directory path".to_string())?;
 
         let cut_result = cut_audio_internal(
             input_path,
             start,
             duration,
-            temp_file.to_str().unwrap(),
+            temp_path,
             &["-c:a", "libmp3lame", "-b:a", "192k"],
             false,
             false,
@@ -127,7 +128,7 @@ pub fn cut_audio(
         }
 
         let fade_result = cut_audio_internal(
-            temp_file.to_str().unwrap(),
+            temp_path,
             &Timecode::zero(),
             duration,
             output_path,
@@ -136,7 +137,7 @@ pub fn cut_audio(
             fade_out,
         );
 
-            let _ = std::fs::remove_file(&temp_file);
+        let _ = std::fs::remove_file(&temp_file);
 
         if let Err(e) = fade_result {
             let _ = std::fs::remove_file(output_path);
@@ -151,9 +152,7 @@ pub fn cut_audio(
         if result.is_err() {
             let _ = std::fs::remove_file(output_path);
             let fallback = cut_audio_internal(input_path, start, duration, output_path, copy_codec, false, false);
-            if fallback.is_err() {
-                return Err(fallback.unwrap_err());
-            }
+            fallback?;
         }
     }
 
