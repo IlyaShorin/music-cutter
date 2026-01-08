@@ -40,7 +40,7 @@
     ],
     "resources": [],
     "macOS": {
-      "entitlements": "entitlements.plist"
+      "frameworks": []
     }
   }
 }
