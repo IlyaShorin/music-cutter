@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Box, Tabs, TabsList, TabsTrigger, TabsContent } from '@chakra-ui/react';
+import { Box, Flex, Tabs, TabsList, TabsTrigger, TabsContent } from '@chakra-ui/react';
 import { FFmpegProvider, useFFmpeg } from './contexts/FFmpegContext';
 import { FfmpegInstallDialog } from './components/FfmpegInstallDialog';
+import { ThemeToggle } from './components/ThemeToggle';
 import { AudioCutter } from './features/audioCutter/AudioCutter';
 import { BatchCutter } from './features/batchCutter/BatchCutter';
 
@@ -44,6 +45,9 @@ function AppContent() {
 
     return (
         <Box py={10} px={20}>
+            <Flex justify="end" mb={2}>
+                <ThemeToggle />
+            </Flex>
             <FfmpegInstallDialog
                 open={showInstallDialog}
                 onClose={handleCloseDialog}
