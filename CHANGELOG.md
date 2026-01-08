@@ -1,3 +1,10 @@
+## [1.4.5](https://github.com/IlyaShorin/music-cutter/compare/v1.4.4...v1.4.5) (2026-01-08)
+
+
+### Bug Fixes
+
+* pass tagName to tauri-action for artifact uploads ([dc5ae34](https://github.com/IlyaShorin/music-cutter/commit/dc5ae34a9e4bf3bf77f9a9db69fcb67ff0fab34e))
+
 ## [1.4.4](https://github.com/IlyaShorin/music-cutter/compare/v1.4.3...v1.4.4) (2026-01-08)
 
 
