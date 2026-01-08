@@ -6,7 +6,46 @@ const FFPROBE_BIN: &str = "ffprobe";
 const FFMPEG_EXE: &str = "ffmpeg.exe";
 const FFPROBE_EXE: &str = "ffprobe.exe";
 
+#[cfg(target_os = "macos")]
+const HOMEBREW_PATHS: &[&str] = &[
+    "/opt/homebrew/bin",
+    "/usr/local/bin",
+    "/opt/homebrew/opt/ffmpeg/bin",
+];
+
 pub fn find_system_ffmpeg() -> Option<(PathBuf, Option<PathBuf>)> {
+    if cfg!(target_os = "macos") {
+        find_macos_ffmpeg()
+    } else {
+        find_generic_ffmpeg()
+    }
+}
+
+#[cfg(target_os = "macos")]
+fn find_macos_ffmpeg() -> Option<(PathBuf, Option<PathBuf>)> {
+    for base in HOMEBREW_PATHS {
+        let ffmpeg_path = PathBuf::from(base).join(FFMPEG_BIN);
+        let ffprobe_path = PathBuf::from(base).join(FFPROBE_BIN);
+
+        if ffmpeg_path.exists() && validate_executable(ffmpeg_path.clone()) {
+            let ffprobe = if ffprobe_path.exists() && validate_executable(ffprobe_path.clone()) {
+                Some(ffprobe_path)
+            } else {
+                find_command(FFPROBE_BIN)
+            };
+            return Some((ffmpeg_path, ffprobe));
+        }
+    }
+
+    find_generic_ffmpeg()
+}
+
+#[cfg(not(target_os = "macos"))]
+fn find_macos_ffmpeg() -> Option<(PathBuf, Option<PathBuf>)> {
+    find_generic_ffmpeg()
+}
+
+fn find_generic_ffmpeg() -> Option<(PathBuf, Option<PathBuf>)> {
     let (ffmpeg_cmd, ffprobe_cmd) = if cfg!(target_os = "windows") {
         (FFMPEG_EXE, FFPROBE_EXE)
     } else {
