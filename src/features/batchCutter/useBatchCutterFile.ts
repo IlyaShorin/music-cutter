@@ -18,7 +18,7 @@ export function useBatchCutterFile(
         try {
             const path = await selectAudioFile();
             setValue('sourceFilePath', path);
-            setValue('defaultArtist', buildDefaultArtist(path.split('/').pop() || path));
+            setValue('defaultArtist', buildDefaultArtist(path.split(/[/\\]/).pop() || path));
 
             const durationStr = await getAudioDuration(path);
             const parts = durationStr.split(':').map(Number);

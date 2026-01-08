@@ -10,14 +10,15 @@ import { BatchCutterActions } from './BatchCutterActions';
 
 function getOutputSubfolderName(sourceFilePath: string | undefined): string {
     if (!sourceFilePath) return '';
-    const fileName = sourceFilePath.split('/').pop() || '';
+    const fileName = sourceFilePath.split(/[/\\]/).pop() || '';
     const baseName = fileName.replace(/\.(mp3|wav|m4a|flac)$/i, '');
     return `${baseName}_tracks`;
 }
 
 function getFullOutputPath(baseFolder: string, sourceFilePath: string): string {
     const subfolderName = getOutputSubfolderName(sourceFilePath);
-    return [baseFolder, subfolderName].join('/');
+    const separator = baseFolder.includes('\\') ? '\\' : '/';
+    return [baseFolder, subfolderName].join(separator);
 }
 
 export function BatchCutter() {

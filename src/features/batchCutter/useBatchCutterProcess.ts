@@ -8,14 +8,15 @@ import type { BatchOutput } from '../../types/batch';
 import { invoke } from '@tauri-apps/api/core';
 
 function getOutputSubfolderName(sourceFilePath: string): string {
-    const fileName = sourceFilePath.split('/').pop() || '';
+    const fileName = sourceFilePath.split(/[/\\]/).pop() || '';
     const baseName = fileName.replace(/\.(mp3|wav|m4a|flac)$/i, '');
     return `${baseName}_tracks`;
 }
 
 function getOutputFolderPath(baseFolder: string, sourceFilePath: string): string {
     const subfolderName = getOutputSubfolderName(sourceFilePath);
-    return [baseFolder, subfolderName].join('/');
+    const separator = baseFolder.includes('\\') ? '\\' : '/';
+    return [baseFolder, subfolderName].join(separator);
 }
 
 export function useBatchCutterProcess(

@@ -10,7 +10,7 @@ export function useBatchCutterOutput(
     const sourceFilePath = watch('sourceFilePath');
 
     const handleSelectOutputFolder = useCallback(async () => {
-        const fileName = sourceFilePath?.split('/').pop()?.replace(/\.(mp3|wav|m4a|flac)$/i, '') || 'output';
+        const fileName = sourceFilePath?.split(/[/\\]/).pop()?.replace(/\.(mp3|wav|m4a|flac)$/i, '') || 'output';
         const folderName = `${fileName}_tracks`;
         const path = await selectOutputFolderAs(folderName);
         setValue('baseOutputFolder', path);

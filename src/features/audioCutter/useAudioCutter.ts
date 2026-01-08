@@ -39,7 +39,7 @@ export function useAudioCutter(): UseAudioCutterResult {
 
             const currentFileName = watch('outputFileName');
             if (!currentFileName) {
-                const fileName = path.split('/').pop()?.replace(/\.[^.]*$/, '') || 'output';
+                const fileName = path.split(/[/\\]/).pop()?.replace(/\.[^.]*$/, '') || 'output';
                 setValue('outputFileName', fileName);
             }
         } catch (e) {
@@ -56,7 +56,7 @@ export function useAudioCutter(): UseAudioCutterResult {
             clearErrors('outputPath');
             setError(null);
 
-            const actualFileName = path.split('/').pop()?.replace(/\.[^.]*$/, '') || '';
+            const actualFileName = path.split(/[/\\]/).pop()?.replace(/\.[^.]*$/, '') || '';
             setValue('outputFileName', actualFileName);
         } catch (e) {
             const message = e instanceof Error ? e.message : String(e);

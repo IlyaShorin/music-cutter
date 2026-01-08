@@ -20,7 +20,7 @@ export function SourceFileSection({
     onSelectFile,
     onSelectOutputFolder,
 }: SourceFileSectionProps) {
-    const folderName = outputFolderPath.split('/').pop() || '';
+    const folderName = outputFolderPath.split(/[/\\]/).pop() || '';
 
     return (
         <VStack gap={3} width="100%">
