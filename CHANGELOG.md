@@ -1,3 +1,11 @@
+## [1.4.3](https://github.com/IlyaShorin/music-cutter/compare/v1.4.2...v1.4.3) (2026-01-08)
+
+
+### Bug Fixes
+
+* disable mcp servers in ci for claude code review ([1584b8a](https://github.com/IlyaShorin/music-cutter/commit/1584b8a68444c435b01d06ed4b88ef64a31bce78))
+* set z.ai base url and disable mcp servers in ci ([09eb640](https://github.com/IlyaShorin/music-cutter/commit/09eb6405e61f4a379821dd6cbec48f3c90057963))
+
 ## [1.4.2](https://github.com/IlyaShorin/music-cutter/compare/v1.4.1...v1.4.2) (2026-01-08)
 
 
