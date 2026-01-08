@@ -1,3 +1,16 @@
+# [1.4.0](https://github.com/IlyaShorin/music-cutter/compare/v1.3.0...v1.4.0) (2026-01-08)
+
+
+### Bug Fixes
+
+* add tauri build to release workflow ([d3547e0](https://github.com/IlyaShorin/music-cutter/commit/d3547e0b4702fa9d578cd483103358ffd66d08d8))
+
+
+### Features
+
+* add dark/light theme toggle ([0b86b38](https://github.com/IlyaShorin/music-cutter/commit/0b86b3875b0d90c210e1747d40932fdf0c39978a))
+* add dark/light theme toggle ([2fe69c5](https://github.com/IlyaShorin/music-cutter/commit/2fe69c5c51d25ee09589d27832e73459586a2ca3))
+
 # [1.3.0](https://github.com/IlyaShorin/music-cutter/compare/v1.2.0...v1.3.0) (2026-01-08)
 
 
