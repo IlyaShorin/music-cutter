@@ -1,3 +1,10 @@
+## [1.4.6](https://github.com/IlyaShorin/music-cutter/compare/v1.4.5...v1.4.6) (2026-01-08)
+
+
+### Bug Fixes
+
+* simplify claude code review settings ([a04bc7e](https://github.com/IlyaShorin/music-cutter/commit/a04bc7eb0259e157ea804c640b41bd825bbe1bbd))
+
 ## [1.4.5](https://github.com/IlyaShorin/music-cutter/compare/v1.4.4...v1.4.5) (2026-01-08)
 
 
