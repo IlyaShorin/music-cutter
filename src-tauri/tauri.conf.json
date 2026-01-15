@@ -48,7 +48,7 @@
     "updater": {
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IERBQzM4N0UxQkVFNzlBQkIKUldTN211ZSs0WWZEMnNNSGV6SG1YWEdKYmFnRDNKMHVmbyt3ZzZQM2k5ODl3REdqSXRjK0h5Q0sK",
       "endpoints": [
-        "https://github.com/ikshorin/music-cutter/releases/latest/download/latest.json"
+        "https://github.com/IlyaShorin/music-cutter/releases/latest/download/latest.json"
       ]
     }
   }
