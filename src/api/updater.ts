@@ -11,13 +11,16 @@ let cachedUpdate: Update | null = null;
 
 export async function checkForUpdates(): Promise<UpdateInfo | null> {
     try {
+        console.log('[Updater] Checking for updates...');
         const update = await check();
 
         if (!update) {
+            console.log('[Updater] No update available');
             cachedUpdate = null;
             return null;
         }
 
+        console.log('[Updater] Update available:', { version: update.version, date: update.date });
         cachedUpdate = update;
 
         return {
@@ -26,7 +29,7 @@ export async function checkForUpdates(): Promise<UpdateInfo | null> {
             body: update.body ?? '',
         };
     } catch (error) {
-        console.error('Failed to check for updates:', error);
+        console.error('[Updater] Failed to check for updates:', error);
         cachedUpdate = null;
         return null;
     }
