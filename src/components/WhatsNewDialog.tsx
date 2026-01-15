@@ -8,6 +8,25 @@ interface WhatsNewDialogProps {
     releaseNotes: string;
 }
 
+function formatReleaseNotes(notes: string): string {
+    if (!notes) return '';
+
+    let formatted = notes;
+
+    formatted = formatted.replace(/##\s+\[?\d+\.\d+\.\d+\]?.*?\n+/g, '');
+    formatted = formatted.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');
+    formatted = formatted.replace(/`([^`]+)`/g, '$1');
+    formatted = formatted.replace(/\*\*([^*]+)\*\*/g, '$1');
+    formatted = formatted.replace(/^\*\s+/gm, '• ');
+    formatted = formatted.replace(/\n{3,}/g, '\n\n');
+    formatted = formatted.replace(/\([^)]*\)/g, match => {
+        if (match.includes('github.com') || match.includes('commit')) return '';
+        return match;
+    });
+
+    return formatted.trim();
+}
+
 export function WhatsNewDialog({ open, onClose, version, releaseNotes }: WhatsNewDialogProps) {
     const { t } = useTypedTranslation();
 
@@ -28,7 +47,7 @@ export function WhatsNewDialog({ open, onClose, version, releaseNotes }: WhatsNe
                             overflowY="auto"
                         >
                             <Text fontSize="sm" whiteSpace="pre-wrap">
-                                {releaseNotes || t('whatsNew.noNotes')}
+                                {releaseNotes ? formatReleaseNotes(releaseNotes) : t('whatsNew.noNotes')}
                             </Text>
                         </Box>
                     </VStack>
