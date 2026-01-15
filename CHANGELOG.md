@@ -1,3 +1,10 @@
+## [1.6.9](https://github.com/IlyaShorin/music-cutter/compare/v1.6.8...v1.6.9) (2026-01-15)
+
+
+### Bug Fixes
+
+* rename generate-latest.js to .cjs for CommonJS compatibility ([185ec18](https://github.com/IlyaShorin/music-cutter/commit/185ec180ac24c6610ab51a4ad464ee0842ba3d07))
+
 ## [1.6.8](https://github.com/IlyaShorin/music-cutter/compare/v1.6.7...v1.6.8) (2026-01-15)
 
 
