@@ -1,6 +1,6 @@
 [package]
 name = "music-cutter"
-version = "1.6.3"
+version = "1.6.4"
 description = "Audio fragment cutter"
 authors = ["ikshorin"]
 edition = "2021"

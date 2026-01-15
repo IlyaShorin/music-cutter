@@ -1,3 +1,10 @@
+## [1.6.4](https://github.com/IlyaShorin/music-cutter/compare/v1.6.3...v1.6.4) (2026-01-15)
+
+
+### Bug Fixes
+
+* rebuild v1.6.1 release with updater artifacts ([cd09f32](https://github.com/IlyaShorin/music-cutter/commit/cd09f32487d6504d273f6118c54f28af77474a73))
+
 ## [1.6.3](https://github.com/IlyaShorin/music-cutter/compare/v1.6.2...v1.6.3) (2026-01-15)
 
 
