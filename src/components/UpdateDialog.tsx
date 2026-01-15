@@ -28,7 +28,7 @@ export function UpdateDialog({
         : 0;
 
     return (
-        <Dialog.Root open={open} onOpenChange={({ open }) => !open && onClose()}>
+        <Dialog.Root open={open} closeOnInteractOutside={false}>
             <Dialog.Content>
                 <Dialog.Header p={4}>
                     <Dialog.Title>{t('updater.title')}</Dialog.Title>

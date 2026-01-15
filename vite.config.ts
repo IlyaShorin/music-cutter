@@ -2,7 +2,6 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "node:path";
 
-// @ts-expect-error process is a nodejs global
 const host = process.env.TAURI_DEV_HOST;
 
 // https://vite.dev/config/
@@ -18,10 +17,20 @@ export default defineConfig(async () => ({
     rollupOptions: {
       output: {
         manualChunks: {
-          'vendor': ['react', 'react-dom', 'react-hook-form'],
-          'chakra': ['@chakra-ui/react', '@emotion/react', '@emotion/styled', 'framer-motion'],
-          'tauri': ['@tauri-apps/api', '@tauri-apps/plugin-opener', '@tauri-apps/plugin-process', '@tauri-apps/plugin-updater'],
-          'i18n': ['i18next', 'react-i18next'],
+          vendor: ["react", "react-dom", "react-hook-form"],
+          chakra: [
+            "@chakra-ui/react",
+            "@emotion/react",
+            "@emotion/styled",
+            "framer-motion",
+          ],
+          tauri: [
+            "@tauri-apps/api",
+            "@tauri-apps/plugin-opener",
+            "@tauri-apps/plugin-process",
+            "@tauri-apps/plugin-updater",
+          ],
+          i18n: ["i18next", "react-i18next"],
         },
       },
     },

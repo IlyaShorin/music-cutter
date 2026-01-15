@@ -72,11 +72,7 @@ function AppContent() {
     }
 
     return (
-        <Box py={10} px={20}>
-            <Flex justify="end" mb={2} gap={2}>
-                <LanguageToggle />
-                <ThemeToggle />
-            </Flex>
+        <>
             <FfmpegInstallDialog
                 open={showInstallDialog}
                 onClose={handleCloseDialog}
@@ -100,7 +96,12 @@ function AppContent() {
                 version={currentVersion ?? ''}
                 releaseNotes={releaseNotes}
             />
-            <Tabs.Root defaultValue="single" variant="enclosed" width="100%">
+            <Box py={10} px={20}>
+                <Flex justify="end" mb={2} gap={2}>
+                    <LanguageToggle />
+                    <ThemeToggle />
+                </Flex>
+                <Tabs.Root defaultValue="single" variant="enclosed" width="100%">
                 <TabsList pb={0}>
                     <TabsTrigger value="single">{t('tabs.singleCut')}</TabsTrigger>
                     <TabsTrigger value="batch">{t('tabs.batch')}</TabsTrigger>
@@ -113,6 +114,7 @@ function AppContent() {
                 </TabsContent>
             </Tabs.Root>
         </Box>
+        </>
     );
 }
 
