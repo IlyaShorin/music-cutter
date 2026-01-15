@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/IlyaShorin/music-cutter/compare/v1.6.13...v1.7.0) (2026-01-15)
+
+
+### Features
+
+* format release notes, remove markdown and links from Whats New dialog ([ef59230](https://github.com/IlyaShorin/music-cutter/commit/ef59230417ab428565a415f0ea8b194c48a549ae))
+
 ## [1.6.13](https://github.com/IlyaShorin/music-cutter/compare/v1.6.12...v1.6.13) (2026-01-15)
 
 
