@@ -14,6 +14,18 @@
       {
         "replacements": [
           {
+            "files": ["package.json"],
+            "from": "\"version\": \".*\"",
+            "to": "\"version\": \"${nextRelease.version}\"",
+            "results": [
+              {
+                "file": "package.json",
+                "hasChanged": true
+              }
+            ],
+            "count": 1
+          },
+          {
             "files": ["src-tauri/Cargo.toml"],
             "from": "^version = \".*\"",
             "to": "version = \"${nextRelease.version}\"",
