@@ -101,7 +101,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAG_NAME: ${{ needs.release.outputs.tag_name }}
         run: |
-          RELEASE_BODY=$(gh release view "$TAG_NAME" --json body -q '.body')
+          RELEASE_BODY=$(gh release view "$TAG_NAME" --json body -q ".body")
 
           node -e "
           const fs = require('fs');
