@@ -1,3 +1,10 @@
+## [1.6.2](https://github.com/IlyaShorin/music-cutter/compare/v1.6.1...v1.6.2) (2026-01-15)
+
+
+### Bug Fixes
+
+* add package.json to semantic-release replacements ([2ee480d](https://github.com/IlyaShorin/music-cutter/commit/2ee480dc398aba99e33e54f6b9925c441a54448d))
+
 ## [1.6.1](https://github.com/IlyaShorin/music-cutter/compare/v1.6.0...v1.6.1) (2026-01-15)
 
 
