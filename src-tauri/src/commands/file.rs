@@ -68,18 +68,12 @@ pub async fn select_output_folder_as(
     let file_path = rx.recv().map_err(|e| e.to_string())?
         .ok_or_else(|| "No file selected".to_string())?;
 
-    let path = file_path
+    file_path
         .into_path()
-        .map_err(|e| e.to_string())?;
-
-    let folder_path = path
-        .parent()
-        .ok_or_else(|| "Invalid folder path".to_string())?;
-
-    folder_path
+        .map_err(|e| e.to_string())?
         .to_str()
         .map(String::from)
-        .ok_or_else(|| "Invalid folder path".to_string())
+        .ok_or_else(|| "Invalid file path".to_string())
 }
 
 #[tauri::command]

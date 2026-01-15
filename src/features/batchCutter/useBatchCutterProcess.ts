@@ -14,10 +14,10 @@ function getOutputSubfolderName(sourceFilePath: string): string {
     return `${baseName}_tracks`;
 }
 
-function getOutputFolderPath(baseFolder: string, sourceFilePath: string): string {
-    const subfolderName = getOutputSubfolderName(sourceFilePath);
+function getOutputFolderPath(baseFolder: string, sourceFilePath: string, subfolderName?: string): string {
+    const folderName = subfolderName || getOutputSubfolderName(sourceFilePath);
     const separator = baseFolder.includes('\\') ? '\\' : '/';
-    return [baseFolder, subfolderName].join(separator);
+    return [baseFolder, folderName].join(separator);
 }
 
 export function useBatchCutterProcess(
@@ -48,7 +48,7 @@ export function useBatchCutterProcess(
         setError(null);
         setResult(null);
 
-        const outputFolder = getOutputFolderPath(values.baseOutputFolder, values.sourceFilePath);
+        const outputFolder = getOutputFolderPath(values.baseOutputFolder, values.sourceFilePath, values.outputSubfolderName);
 
         try {
             await invoke('clear_output_folder', { path: outputFolder });

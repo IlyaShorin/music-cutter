@@ -4,6 +4,7 @@ export interface BatchCutterForm {
     sourceFilePath: string;
     rawTracklist: string;
     baseOutputFolder: string;
+    outputSubfolderName: string;
     defaultArtist: string;
     applyArtistToAll: boolean;
     applyCoverToAll: boolean;
@@ -15,6 +16,7 @@ export function useBatchCutterForm() {
             sourceFilePath: '',
             rawTracklist: '',
             baseOutputFolder: '',
+            outputSubfolderName: '',
             defaultArtist: '',
             applyArtistToAll: false,
             applyCoverToAll: false,
