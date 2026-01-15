@@ -1,3 +1,10 @@
+## [1.6.1](https://github.com/IlyaShorin/music-cutter/compare/v1.6.0...v1.6.1) (2026-01-15)
+
+
+### Bug Fixes
+
+* add missing getAppVersion command to exports ([80e87ef](https://github.com/IlyaShorin/music-cutter/commit/80e87ef012769e5834e766a37880b6d8c68f90f9))
+
 # [1.6.0](https://github.com/IlyaShorin/music-cutter/compare/v1.5.0...v1.6.0) (2026-01-15)
 
 
