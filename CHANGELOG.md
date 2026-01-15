@@ -1,3 +1,10 @@
+## [1.6.8](https://github.com/IlyaShorin/music-cutter/compare/v1.6.7...v1.6.8) (2026-01-15)
+
+
+### Bug Fixes
+
+* checkout tag instead of main in build jobs to get correct version ([edec641](https://github.com/IlyaShorin/music-cutter/commit/edec64141d99921519ddf1761d60a92ef98d5338))
+
 ## [1.6.7](https://github.com/IlyaShorin/music-cutter/compare/v1.6.6...v1.6.7) (2026-01-15)
 
 
