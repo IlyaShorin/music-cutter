@@ -1,3 +1,10 @@
+## [1.6.13](https://github.com/IlyaShorin/music-cutter/compare/v1.6.12...v1.6.13) (2026-01-15)
+
+
+### Bug Fixes
+
+* add capabilities config, fetch release notes from GitHub API ([50a4f18](https://github.com/IlyaShorin/music-cutter/commit/50a4f18c4730a55816a919e0ec56ac257255046b))
+
 ## [1.6.12](https://github.com/IlyaShorin/music-cutter/compare/v1.6.11...v1.6.12) (2026-01-15)
 
 
