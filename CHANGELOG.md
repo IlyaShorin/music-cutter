@@ -1,3 +1,10 @@
+## [1.6.5](https://github.com/IlyaShorin/music-cutter/compare/v1.6.4...v1.6.5) (2026-01-15)
+
+
+### Bug Fixes
+
+* escape quotes in latest.json generation ([f6a0a10](https://github.com/IlyaShorin/music-cutter/commit/f6a0a10b57d986090d3aec538bec0bae759864f5))
+
 ## [1.6.4](https://github.com/IlyaShorin/music-cutter/compare/v1.6.3...v1.6.4) (2026-01-15)
 
 
