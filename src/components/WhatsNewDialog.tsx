@@ -13,16 +13,15 @@ function formatReleaseNotes(notes: string): string {
 
     let formatted = notes;
 
+    formatted = formatted.replace(/^#\s+[\d.]+\s*\(.*?\)\s*\n+/gm, '');
     formatted = formatted.replace(/##\s+\[?\d+\.\d+\.\d+\]?.*?\n+/g, '');
+    formatted = formatted.replace(/###\s+([^\n]+)/g, '$1:');
     formatted = formatted.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');
     formatted = formatted.replace(/`([^`]+)`/g, '$1');
     formatted = formatted.replace(/\*\*([^*]+)\*\*/g, '$1');
     formatted = formatted.replace(/^\*\s+/gm, '• ');
+    formatted = formatted.replace(/\s*\([a-f0-9]{7}\)\s*$/gm, '');
     formatted = formatted.replace(/\n{3,}/g, '\n\n');
-    formatted = formatted.replace(/\([^)]*\)/g, match => {
-        if (match.includes('github.com') || match.includes('commit')) return '';
-        return match;
-    });
 
     return formatted.trim();
 }
