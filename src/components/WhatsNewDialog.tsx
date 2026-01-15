@@ -13,9 +13,8 @@ function formatReleaseNotes(notes: string): string {
 
     let formatted = notes;
 
-    formatted = formatted.replace(/^#\s+[\d.]+\s*\(.*?\)\s*\n+/gm, '');
     formatted = formatted.replace(/##\s+\[?\d+\.\d+\.\d+\]?.*?\n+/g, '');
-    formatted = formatted.replace(/###\s+([^\n]+)/g, '$1:');
+    formatted = formatted.replace(/###\s+[^\n]+\n*/g, '');
     formatted = formatted.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');
     formatted = formatted.replace(/`([^`]+)`/g, '$1');
     formatted = formatted.replace(/\*\*([^*]+)\*\*/g, '$1');
