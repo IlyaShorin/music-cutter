@@ -1,3 +1,10 @@
+## [1.7.2](https://github.com/IlyaShorin/music-cutter/compare/v1.7.1...v1.7.2) (2026-01-15)
+
+
+### Bug Fixes
+
+* keep version header, remove subheadings from release notes ([1bb1bbb](https://github.com/IlyaShorin/music-cutter/commit/1bb1bbbf6149d3912ee0504d729786eb2ac2cd70))
+
 ## [1.7.1](https://github.com/IlyaShorin/music-cutter/compare/v1.7.0...v1.7.1) (2026-01-15)
 
 
