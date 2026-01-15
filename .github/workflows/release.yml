@@ -108,7 +108,7 @@ jobs:
           RELEASE_BODY=$(gh release view "$TAG_NAME" --json body -q '.body')
           export RELEASE_BODY
           export TAG_NAME
-          node .github/scripts/generate-latest.js
+          node .github/scripts/generate-latest.cjs
 
       - name: Upload latest.json to release
         env:
