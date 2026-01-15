@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/IlyaShorin/music-cutter/compare/v1.5.0...v1.6.0) (2026-01-15)
+
+
+### Features
+
+* add auto-update functionality with Tauri updater ([2cfe85a](https://github.com/IlyaShorin/music-cutter/commit/2cfe85ad5611e049fc52b02d222d6f40cb29212f))
+
 # [1.5.0](https://github.com/IlyaShorin/music-cutter/compare/v1.4.12...v1.5.0) (2026-01-08)
 
 
