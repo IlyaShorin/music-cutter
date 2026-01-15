@@ -1,3 +1,10 @@
+## [1.6.12](https://github.com/IlyaShorin/music-cutter/compare/v1.6.11...v1.6.12) (2026-01-15)
+
+
+### Bug Fixes
+
+* simplify release workflow to use tauri-action auto-generated latest.json ([94c2edc](https://github.com/IlyaShorin/music-cutter/commit/94c2edc252a51ef3fc654d0e671bba9bf3d9307d))
+
 ## [1.6.11](https://github.com/IlyaShorin/music-cutter/compare/v1.6.10...v1.6.11) (2026-01-15)
 
 
