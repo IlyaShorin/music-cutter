@@ -1,3 +1,10 @@
+## [1.6.7](https://github.com/IlyaShorin/music-cutter/compare/v1.6.6...v1.6.7) (2026-01-15)
+
+
+### Bug Fixes
+
+* use separate script file for latest.json generation to avoid quote escaping issues ([c726189](https://github.com/IlyaShorin/music-cutter/commit/c726189cf12e5a0c7e95f2463555637eaebe1b24))
+
 ## [1.6.6](https://github.com/IlyaShorin/music-cutter/compare/v1.6.5...v1.6.6) (2026-01-15)
 
 
