@@ -20,3 +20,7 @@ export async function selectOutputFolderAs(defaultName: string): Promise<string>
 export async function cutAudioFragment(input: AudioInput): Promise<AudioOutput> {
     return await invoke<AudioOutput>('cut_audio_fragment', { input });
 }
+
+export async function getAppVersion(): Promise<string> {
+    return await invoke<string>('get_app_version');
+}
