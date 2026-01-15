@@ -1,3 +1,10 @@
+## [1.6.6](https://github.com/IlyaShorin/music-cutter/compare/v1.6.5...v1.6.6) (2026-01-15)
+
+
+### Bug Fixes
+
+* initialize updater plugin correctly via setup() ([3c52cff](https://github.com/IlyaShorin/music-cutter/commit/3c52cff9d1d10135a556d3a4a9642673c74e4f7f))
+
 ## [1.6.5](https://github.com/IlyaShorin/music-cutter/compare/v1.6.4...v1.6.5) (2026-01-15)
 
 
