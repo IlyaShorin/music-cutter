@@ -1,3 +1,10 @@
+## [1.6.10](https://github.com/IlyaShorin/music-cutter/compare/v1.6.9...v1.6.10) (2026-01-15)
+
+
+### Bug Fixes
+
+* correct GitHub username in updater endpoint ([225400d](https://github.com/IlyaShorin/music-cutter/commit/225400dbbebd3cc86c82f36c403f55585ef7134e))
+
 ## [1.6.9](https://github.com/IlyaShorin/music-cutter/compare/v1.6.8...v1.6.9) (2026-01-15)
 
 

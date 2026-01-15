@@ -2,7 +2,7 @@
   "name": "music-cutter",
   "private": true,
   "license": "CC-BY-NC-4.0",
-  "version": "1.6.9",
+  "version": "1.6.10",
   "type": "module",
   "scripts": {
     "dev": "vite",
