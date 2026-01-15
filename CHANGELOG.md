@@ -1,3 +1,10 @@
+## [1.7.3](https://github.com/IlyaShorin/music-cutter/compare/v1.7.2...v1.7.3) (2026-01-15)
+
+
+### Bug Fixes
+
+* respect custom folder name in batch cutter output dialog ([bffb591](https://github.com/IlyaShorin/music-cutter/commit/bffb5918b4a40aa5d28a69e1bf942121fe8f442b))
+
 ## [1.7.2](https://github.com/IlyaShorin/music-cutter/compare/v1.7.1...v1.7.2) (2026-01-15)
 
 
