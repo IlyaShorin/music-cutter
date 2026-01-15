@@ -1,3 +1,10 @@
+## [1.6.11](https://github.com/IlyaShorin/music-cutter/compare/v1.6.10...v1.6.11) (2026-01-15)
+
+
+### Bug Fixes
+
+* disable tauri-action auto-generated latest.json to prevent platform key conflicts ([cbd24d3](https://github.com/IlyaShorin/music-cutter/commit/cbd24d3f2b34bfdadb26d345956b26ed9084542a))
+
 ## [1.6.10](https://github.com/IlyaShorin/music-cutter/compare/v1.6.9...v1.6.10) (2026-01-15)
 
 
