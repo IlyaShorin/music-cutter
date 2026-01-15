@@ -8,9 +8,7 @@ pub fn hidden_command(program: impl AsRef<std::ffi::OsStr>) -> Command {
     {
         use std::os::windows::process::CommandExt;
         let mut cmd = Command::new(program);
-        unsafe {
-            cmd.creation_flags(CREATE_NO_WINDOW);
-        }
+        cmd.creation_flags(CREATE_NO_WINDOW);
         cmd
     }
     #[cfg(not(windows))]

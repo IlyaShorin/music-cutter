@@ -2,11 +2,15 @@ import { useEffect, useState } from 'react';
 import { Box, Flex, Tabs, TabsList, TabsTrigger, TabsContent } from '@chakra-ui/react';
 import { FFmpegProvider, useFFmpeg } from './contexts/FFmpegContext';
 import { FfmpegInstallDialog } from './components/FfmpegInstallDialog';
+import { UpdateDialog } from './components/UpdateDialog';
+import { WhatsNewDialog } from './components/WhatsNewDialog';
 import { LanguageToggle } from './components/LanguageToggle';
 import { ThemeToggle } from './components/ThemeToggle';
 import { AudioCutter } from './features/audioCutter/AudioCutter';
 import { BatchCutter } from './features/batchCutter/BatchCutter';
 import { useTypedTranslation } from '@/i18n';
+import { useUpdater } from '@/hooks/useUpdater';
+import { useWhatsNew } from '@/hooks/useWhatsNew';
 
 function AppContent() {
     const { t } = useTypedTranslation();
@@ -14,6 +18,18 @@ function AppContent() {
     const [showInstallDialog, setShowInstallDialog] = useState(false);
     const [hasCheckedOnMount, setHasCheckedOnMount] = useState(false);
     const [error, setError] = useState<string>();
+
+    const {
+        updateInfo,
+        isUpdateAvailable,
+        isDownloading: isUpdateDownloading,
+        downloadProgress: updateDownloadProgress,
+        error: updateError,
+        installUpdate,
+        skipUpdate,
+    } = useUpdater(true);
+
+    const { showWhatsNew, currentVersion, releaseNotes, markAsViewed } = useWhatsNew();
 
     useEffect(() => {
         let cancelled = false;
@@ -42,6 +58,15 @@ function AppContent() {
 
     const handleCloseDialog = () => setShowInstallDialog(false);
 
+    const handleInstallUpdate = async () => {
+        await installUpdate();
+        markAsViewed();
+    };
+
+    const handleSkipUpdate = () => {
+        skipUpdate();
+    };
+
     if (isLoading && !hasCheckedOnMount) {
         return <Box py={10} px={20}>Loading...</Box>;
     }
@@ -59,6 +84,21 @@ function AppContent() {
                 isDownloading={isDownloading}
                 downloadProgress={downloadProgress}
                 error={error}
+            />
+            <UpdateDialog
+                open={isUpdateAvailable}
+                onClose={handleSkipUpdate}
+                onUpdate={handleInstallUpdate}
+                updateInfo={updateInfo}
+                isDownloading={isUpdateDownloading}
+                downloadProgress={updateDownloadProgress ?? undefined}
+                error={updateError ?? undefined}
+            />
+            <WhatsNewDialog
+                open={showWhatsNew}
+                onClose={markAsViewed}
+                version={currentVersion ?? ''}
+                releaseNotes={releaseNotes}
             />
             <Tabs.Root defaultValue="single" variant="enclosed" width="100%">
                 <TabsList pb={0}>

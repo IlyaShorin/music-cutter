@@ -25,7 +25,7 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: npm install -g semantic-release @semantic-release/git @semantic-release/changelog @semantic-release/exec
+        run: npm install -g semantic-release @semantic-release/git @semantic-release/changelog @semantic-release/exec semantic-release-replace-plugin
 
       - name: Release
         id: release
@@ -60,9 +60,100 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Sync version to Tauri
+        shell: bash
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          if [[ "$RUNNER_OS" == "macOS" ]]; then
+            sed -i '' "s/^version = .*/version = \"$VERSION\"/" src-tauri/Cargo.toml
+            sed -i '' "s/\"version\": \".*\"/\"version\": \"$VERSION\"/" src-tauri/tauri.conf.json
+          else
+            sed -i "s/^version = .*/version = \"$VERSION\"/" src-tauri/Cargo.toml
+            sed -i "s/\"version\": \".*\"/\"version\": \"$VERSION\"/" src-tauri/tauri.conf.json
+          fi
+
       - name: Build Tauri app
         uses: tauri-apps/tauri-action@v0
         with:
           tagName: ${{ needs.release.outputs.tag_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+
+  generate-latest-json:
+    needs: [release, build]
+    if: needs.release.outputs.release_created == 'true'
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Get release assets and generate latest.json
+        id: generate
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG_NAME: ${{ needs.release.outputs.tag_name }}
+        run: |
+          RELEASE_BODY=$(gh release view "$TAG_NAME" --json body -q '.body')
+
+          node -e "
+          const fs = require('fs');
+          const { execSync } = require('child_process');
+
+          const tag = process.env.TAG_NAME;
+          const releaseBody = process.env.RELEASE_BODY || '';
+
+          const extensions = ['\\.dmg$', '\\.exe$', '\\.appimage$'];
+          let assetsList = [];
+
+          extensions.forEach(ext => {
+            const releaseData = execSync(\`gh release view \${tag} --json assets,body -q \\".assets[] | select(.name | test(\\"${ext}\\\")) | {name: .name, url: .browser_download_url}\\"\`, { encoding: 'utf8' });
+            const lines = releaseData.trim().split('\\n').filter(Boolean).map(line => {
+              const match = line.match(/\\{[^}]+\\}/);
+              return match ? JSON.parse(match[0]) : null;
+            }).filter(Boolean);
+            assetsList = assetsList.concat(lines);
+          });
+
+          const pkg = require('./package.json');
+          const latest = {
+            version: pkg.version,
+            body: releaseBody,
+            date: new Date().toISOString(),
+            platforms: {}
+          };
+
+          assetsList.forEach(asset => {
+            const name = asset.name;
+            const url = asset.url;
+
+            if (name.endsWith('.dmg')) {
+              if (name.includes('aarch64') || name.includes('arm64')) {
+                latest.platforms['darwin-aarch64'] = [{ url }];
+              } else if (name.includes('x64') || name.includes('x86_64')) {
+                latest.platforms['darwin-x86_64'] = [{ url }];
+              }
+            } else if (name.endsWith('.exe')) {
+              latest.platforms['windows-x86_64'] = [{ url }];
+            } else if (name.endsWith('.appimage')) {
+              latest.platforms['linux-x86_64'] = [{ url }];
+            }
+          });
+
+          fs.writeFileSync('latest.json', JSON.stringify(latest, null, 2));
+          console.log('Generated latest.json with release notes');
+          "
+
+      - name: Upload latest.json to release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG_NAME="${{ needs.release.outputs.tag_name }}"
+          gh release upload "$TAG_NAME" latest.json --clobber

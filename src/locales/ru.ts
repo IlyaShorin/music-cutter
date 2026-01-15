@@ -122,6 +122,21 @@ export const ru: Translations = {
         cancel: 'Отмена',
         error: 'Ошибка загрузки FFmpeg',
     },
+    updater: {
+        title: 'Доступно обновление',
+        newVersionAvailable: 'Доступна версия {{version}}!',
+        downloading: 'Загрузка... {{progress}}%',
+        downloadSize: '{{current}} / {{total}}',
+        update: 'Обновить',
+        skip: 'Пропустить',
+        error: 'Ошибка: {{error}}',
+    },
+    whatsNew: {
+        title: 'Что нового в v{{version}}',
+        subtitle: 'Это обновление приносит улучшения и исправления ошибок:',
+        noNotes: 'Примечания к выпуску отсутствуют.',
+        close: 'Понятно!',
+    },
     coverUpload: {
         change: 'Изменить',
         upload: 'Загрузить',

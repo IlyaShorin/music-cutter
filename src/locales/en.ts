@@ -120,6 +120,21 @@ export const en = {
         cancel: 'Cancel',
         error: 'Error downloading FFmpeg',
     },
+    updater: {
+        title: 'Update Available',
+        newVersionAvailable: 'Version {{version}} is available!',
+        downloading: 'Downloading... {{progress}}%',
+        downloadSize: '{{current}} / {{total}}',
+        update: 'Update Now',
+        skip: 'Skip',
+        error: 'Error: {{error}}',
+    },
+    whatsNew: {
+        title: 'What\'s New in v{{version}}',
+        subtitle: 'This update brings improvements and bug fixes:',
+        noNotes: 'No release notes available.',
+        close: 'Got it!',
+    },
     coverUpload: {
         change: 'Change',
         upload: 'Upload',
