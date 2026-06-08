@@ -1,39 +1,43 @@
 # Music Cutter
 
-Десктопное приложение для вырезания фрагментов из MP3 аудиофайлов.
+[![English](https://img.shields.io/badge/lang-English-blue)](README.md)
+[![Russian](https://img.shields.io/badge/lang-Russian-red)](README.ru.md)
 
-## Установка
+A desktop application for cutting fragments from MP3 audio files.
+
+## Installation
 
 ### macOS
 
-После скачивания .dmg файла возможно появится сообщение "Приложение повреждено и не может быть открыто".
+After downloading the `.dmg` file, you may see the message "The application is damaged and can't be opened".
 
-**Способ 1:** Нажмите правой кнопкой мыши на приложении → выберите "Открыть" → нажмите "Открыть" в диалоговом окне.
+**Method 1:** Right-click the application, choose "Open", then click "Open" in the dialog.
 
-**Способ 2:** Выполните в терминале:
+**Method 2:** Run this command in the terminal:
+
 ```bash
 xattr -cr /Applications/Music\ Cutter.app
 ```
 
-Это происходит потому что приложение не подписано сертификатом Apple Developer.
+This happens because the application is not signed with an Apple Developer certificate.
 
 ### Windows
 
-Скачайте и запустите `.exe` или `.msi` установщик.
+Download and run the `.exe` or `.msi` installer.
 
-## Стек технологий
+## Tech Stack
 
 - **Backend:** Rust + Tauri 2.x
 - **Frontend:** React 19 + TypeScript + Vite + Chakra UI
-- **Аудио обработка:** FFmpeg
+- **Audio processing:** FFmpeg
 
-## Разработка
+## Development
 
 ```bash
 npm run tauri dev
 ```
 
-## Сборка
+## Build
 
 ```bash
 npm run tauri build
